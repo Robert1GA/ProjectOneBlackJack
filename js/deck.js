@@ -7,9 +7,9 @@ class cards {
   }
 }
 
-var allCards = [];
+var ALLCARDS = [];
 
-  allCards.push(
+  ALLCARDS.push(
     card0 = new cards ("ace", "club", 11, "#"),
     card1 = new cards ("ace", "diamonds", 11, "#"),
     card2 = new cards ("ace", "hearts", 11, "#"),
@@ -60,9 +60,3 @@ var allCards = [];
     card38 = new cards ("ten", "hearts", 10, "#"),
     card39 = new cards ("ten", "spades", 10, "#")
   );
-
-
-console.log(allCards[0]);
-console.log(allCards[1]);
-console.log(allCards[39]);
-console.log(allCards.length);

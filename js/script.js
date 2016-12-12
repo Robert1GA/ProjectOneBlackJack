@@ -9,8 +9,9 @@ $("document").ready(function() {
 
   // Under starting conditions, playing buttons should be hidden
   $("#hit").hide();
-  $("#stay").hide();
+  $("#stand").hide();
   $("#double").hide();
+  $("#split").hide();
   console.log("deck card0:", deck[0]);
   console.log("deck length:", deck.length);
 
@@ -23,7 +24,7 @@ $("document").ready(function() {
     startingCards();
     $("#dealCards").toggle();  // hide the deal button just clicked.
     $("#hit").show();   // unhide the buttons necessary for gameplay.
-    $("#stay").show();
+    $("#stand").show();
     $("#double").show();
   });
 
@@ -34,11 +35,18 @@ $("document").ready(function() {
   });
 
   // event listener on the button that
-  $("#stay").click(function(e){
+  $("#stand").click(function(e){
     e.preventDefault();
+    stand();
   });
 
   // event listener on double-down button
+  $("#double").click(function(e){
+    e.preventDefault();
+    doubleDown();
+  });
+
+  // event listener on split button
   $("#double").click(function(e){
     e.preventDefault();
   });
@@ -66,12 +74,18 @@ $("document").ready(function() {
     console.log("players value",playerCards[0].value+playerCards[1].value);
     console.log("new deck length:", deck.length);
     displayCards(dealerCards,playerCards);
+    if (splitAvailable(playerCards)) {
+      $("#split").show();
+    }
   }
 
+  function splitAvailable(card) {
+    return (card[0].value === card[1].value);
+  }
 
   function displayCards(topCards,bottomCards) {
     console.log("dealerCards ", dealerCards);
-    $(".dealerCard").eq(0).attr("src", topCards[0].img);
+    $(".dealerCard").eq(0).attr("src", "img/red.jpg");
     $(".dealerCard").eq(1).attr("src", topCards[1].img);
     $(".playerCard").eq(0).attr("src", bottomCards[0].img);
     $(".playerCard").eq(1).attr("src", bottomCards[1].img);
@@ -100,10 +114,16 @@ $("document").ready(function() {
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
     $("#playerScore").html(playerScore);
-    if (playerScore === 21) {
-      console.log("playerScore: 21!", playerScore);
+    if (playerScore === 21 && totalCards === 1) {
+      console.log("BLACKJACK", playerScore);
+      alert("Blackjack!");
+      stand();
+    } else if (playerScore === 21) {
+      console.log("auto-stand", playerScore);
+      stand();
     } else if (playerScore > 21) {
       console.log("player is bust", playerScore);
+      stand();
     } else if (playerScore < 21) {
       // gameplay continues
     } else {
@@ -113,12 +133,38 @@ $("document").ready(function() {
   }
 
   function playerHit() {
+    disableFirstCardOptions()
     playerCards.push(generateRandomCard());
     totalCards++
     $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
     console.log("totalCards:",totalCards);
     console.log($(".playerCard").eq(totalCards));
     showPlayerScore(playerCards);
+  }
+
+  function doubleDown() {
+
+  }
+
+
+  function stand() {
+    disableHitStand();
+    dealtoDealer();
+  }
+
+  function disableFirstCardOptions() {
+    $("#double").attr("disabled","disabled");
+    $("#split").attr("disabled","disabled");
+  }
+
+  function disableHitStand() {
+    $("#hit").attr("disabled","disabled");
+    $("#stand").attr("disabled","disabled");
+  }
+
+  function dealtoDealer() {
+    $(".dealerCard").eq(0).attr("src", dealerCards[0].img);
+    calculateScore(dealerCards);
   }
 
 

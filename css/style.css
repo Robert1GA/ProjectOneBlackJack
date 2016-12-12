@@ -1,5 +1,7 @@
 img {
   border: solid black 2pt;
+  height: 150px;
+  width: 110px;
 }
 
 /*#double, #hit, #stay {

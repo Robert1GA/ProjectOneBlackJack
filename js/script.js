@@ -47,8 +47,7 @@ $("document").ready(function() {
   function generateRandomCard() {
     var rand = Math.round(Math.random() * (deck.length-1));
     var aCard = deck[rand];
-    console.log(rand);
-    console.log(aCard);
+    console.log("aCard:",aCard);
     deck.splice(rand,1);  // pull the generated card from the deck; no re-use.
     return aCard;
   }
@@ -72,10 +71,10 @@ $("document").ready(function() {
 
   function displayCards(topCards,bottomCards) {
     console.log("dealerCards ", dealerCards);
-    $("#dealercard0").attr("src", topCards[0].img);
-    $("#dealercard1").attr("src", topCards[1].img);
-    $(".playercard").eq(0).attr("src", bottomCards[0].img);
-    $(".playercard").eq(1).attr("src", bottomCards[1].img);
+    $(".dealerCard").eq(0).attr("src", topCards[0].img);
+    $(".dealerCard").eq(1).attr("src", topCards[1].img);
+    $(".playerCard").eq(0).attr("src", bottomCards[0].img);
+    $(".playerCard").eq(1).attr("src", bottomCards[1].img);
     showPlayerScore(playerCards);
   }
 
@@ -84,6 +83,7 @@ $("document").ready(function() {
     var minScore = 0;
     cards.forEach(function(card){
       minScore += card.value;
+      console.log("minScore:", minScore);
     });
 
     var maxScore = minScore;
@@ -101,7 +101,7 @@ $("document").ready(function() {
     playerScore = calculateScore(cards);
     $("#playerScore").html(playerScore);
     if (playerScore === 21) {
-
+      console.log("playerScore: 21!", playerScore);
     } else if (playerScore > 21) {
       console.log("player is bust", playerScore);
     } else if (playerScore < 21) {
@@ -114,9 +114,10 @@ $("document").ready(function() {
 
   function playerHit() {
     playerCards.push(generateRandomCard());
-    $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
     totalCards++
+    $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
     console.log("totalCards:",totalCards);
+    console.log($(".playerCard").eq(totalCards));
     showPlayerScore(playerCards);
   }
 

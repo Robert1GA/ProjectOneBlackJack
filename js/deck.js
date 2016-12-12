@@ -10,20 +10,20 @@ class cards {
 var ALLCARDS = [];
 
   ALLCARDS.push(
-    card0 = new cards ("ace", "club", 11, "#"),
-    card1 = new cards ("ace", "diamonds", 11, "#"),
-    card2 = new cards ("ace", "hearts", 11, "#"),
-    card3 = new cards ("ace", "spades", 11, "#"),
+    card0 = new cards ("ace", "club", 11, "img/aceclubs.jpg"),
+    card1 = new cards ("ace", "diamonds", 11, "img/acediamonds.jpg"),
+    card2 = new cards ("ace", "hearts", 11, "img/acehearts.jpg"),
+    card3 = new cards ("ace", "spades", 11, "img/acespades.jpg"),
 
-    card4 = new cards ("two", "club", 2, "#"),
-    card5 = new cards ("two", "diamonds", 2, "#"),
-    card6 = new cards ("two", "hearts", 2, "#"),
-    card7 = new cards ("two", "spades", 2, "#"),
+    card4 = new cards ("two", "club", 2, "img/twoclubs.jpg"),
+    card5 = new cards ("two", "diamonds", 2, "img/twodiamonds.jpg"),
+    card6 = new cards ("two", "hearts", 2, "img/twohearts.jpg"),
+    card7 = new cards ("two", "spades", 2, "img/twospades.jpg"),
 
-    card8 = new cards ("three", "club", 3, "#"),
-    card9 = new cards ("three", "diamonds", 3, "#"),
-    card10 = new cards ("three", "hearts", 3, "#"),
-    card11 = new cards ("three", "spades", 3, "#"),
+    card8 = new cards ("three", "club", 3, "img/.jpg"),
+    card9 = new cards ("three", "diamonds", 3, "img/.jpg"),
+    card10 = new cards ("three", "hearts", 3, "img/.jpg"),
+    card11 = new cards ("three", "spades", 3, "img/.jpg"),
 
     card12 = new cards ("four", "club", 4, "#"),
     card13 = new cards ("four", "diamonds", 4, "#"),

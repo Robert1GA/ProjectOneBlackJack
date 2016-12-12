@@ -29,6 +29,9 @@ $("document").ready(function() {
 
   startingCards();
 
+  $("#dealercard0").attr("src", ALLCARDS[0].img);
+  $("#playercard0").attr ("src", ALLCARDS[1].img);
+
   function calculateCards() {
 
   }

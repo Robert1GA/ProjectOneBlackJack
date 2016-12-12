@@ -1,27 +1,30 @@
 $("document").ready(function() {
   console.log("ready!");
-
+  // Starting conditions
   var deck = [];
-  deck = ALLCARDS;
+  deck = ALLCARDS; // use a temporary deck made up of all Total Cards
   var dealerCards = [];
   var playerCards = [];
+  var totalCards;
 
-  $("#hit").toggle();
-  $("#stay").toggle();
-  $("#double").toggle();
-
+  // Under starting conditions, playing buttons should be hidden
+  $("#hit").hide();
+  $("#stay").hide();
+  $("#double").hide();
   console.log("deck card0:", deck[0]);
   console.log("deck length:", deck.length);
 
-  // event listener on the button that
+
+  // event listener on the button to deal cards and initiate the game
   $("#dealCards").click(function(e){
     e.preventDefault();
     console.log("DEAL click");
+    totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
     startingCards();
-    $("#dealCards").toggle();
-    $("#hit").toggle();
-    $("#stay").toggle();
-    $("#double").toggle();
+    $("#dealCards").toggle();  // hide the deal button just clicked.
+    $("#hit").show();   // unhide the buttons necessary for gameplay.
+    $("#stay").show();
+    $("#double").show();
   });
 
   $("#hit").click(function(e){
@@ -41,15 +44,15 @@ $("document").ready(function() {
   });
 
 
-
   function generateRandomCard() {
     var rand = Math.round(Math.random() * (deck.length-1));
     var aCard = deck[rand];
     console.log(rand);
     console.log(aCard);
-    deck.splice(rand,1);
+    deck.splice(rand,1);  // pull the generated card from the deck; no re-use.
     return aCard;
   }
+
 
   function startingCards() {
     // var dealerCards = [];
@@ -67,16 +70,16 @@ $("document").ready(function() {
   }
 
 
-
   function displayCards(topCards,bottomCards) {
     console.log("dealerCards ", dealerCards);
     $("#dealercard0").attr("src", topCards[0].img);
     $("#dealercard1").attr("src", topCards[1].img);
-    $("#playercard0").attr ("src", bottomCards[0].img);
-    $("#playercard1").attr ("src", bottomCards[1].img);
+    $("#playercard0").attr("src", bottomCards[0].img);
+    $("#playercard1").attr("src", bottomCards[1].img);
     showPlayerScore(playerCards);
   }
 
+  // calculate the value of a hand, taking into account handling aces
   function calculateScore(cards) {
     var minScore = 0;
     cards.forEach(function(card){
@@ -85,10 +88,12 @@ $("document").ready(function() {
 
     var maxScore = minScore;
     cards.forEach(function(card){
+      // checks if making an ace value 11 busts.  if not, add 10 to value of ace.
       if (card.value === 1 && maxScore + 10 <= 21) {
         maxScore += 10;
       }
     });
+    console.log("maxscore", maxScore);
     return maxScore;
   }
 
@@ -99,7 +104,9 @@ $("document").ready(function() {
 
   function playerHit() {
     playerCards.push(generateRandomCard());
-    displayCards();
+    $("#playercard2").attr("src", playerCards[totalCards].img);
+    showPlayerScore(playerCards);
+
   }
 
 

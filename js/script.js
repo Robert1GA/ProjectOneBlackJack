@@ -1,5 +1,5 @@
 $("document").ready(function() {
-  console.log("ready!");
+  console.log("all systems go!");
   // Starting conditions
   var deck = [];
   deck = ALLCARDS; // use a temporary deck made up of all Total Cards
@@ -97,7 +97,6 @@ $("document").ready(function() {
     var minScore = 0;
     cards.forEach(function(card){
       minScore += card.value;
-      console.log("minScore:", minScore);
     });
 
     var maxScore = minScore;
@@ -128,7 +127,7 @@ $("document").ready(function() {
       // gameplay continues
     } else {
       // wtf moment
-      console.log("I'm not sure what, but something broke with playerScore!");
+      console.log("I'm not sure what broke with playerScore!");
     }
   }
 
@@ -143,7 +142,8 @@ $("document").ready(function() {
   }
 
   function doubleDown() {
-
+    playerHit();
+    stand();
   }
 
 
@@ -164,8 +164,41 @@ $("document").ready(function() {
 
   function dealtoDealer() {
     $(".dealerCard").eq(0).attr("src", dealerCards[0].img);
-    calculateScore(dealerCards);
+    var counter = 2;
+    var dealerScore = calculateScore(dealerCards);
+    while (dealerScore < 17) {
+      console.log("dealer",dealerCards);
+      dealerCards.push(generateRandomCard());
+      $(".dealerCard").eq(counter).attr("src", dealerCards[counter].img);
+      dealerScore = calculateScore(dealerCards);
+      counter++;
+    }
+    $("#dealerScore").html(dealerScore);
+    detectWin();
   }
 
+  function detectWin() {
+    playerScore = calculateScore(playerCards);
+    dealerScore = calculateScore(dealerCards);
+    if (playerScore > 21) {
+      console.log("you bust",playerScore);
+      playerBust();
+    } else if (dealerScore > 21) {
+      console.log("dealer bust",dealerScore);
+    } else if (playerScore > dealerScore) {
+      console.log("player wins", playerScore, dealerScore);
+    } else if (playerScore < dealerScore) {
+      console.log("player loses", playerScore, dealerScore);
+    } else if (playerScore === dealerScore) {
+      console.log("PUSH", playerScore, dealerScore);
+    } else {
+      // wtf moment
+      console.log("I'm not sure what broke with detectWin!");
+    }
+  }
+
+  function playerBust(){
+    console.log("playerBust() function");
+  }
 
 });

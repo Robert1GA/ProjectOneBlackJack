@@ -74,8 +74,8 @@ $("document").ready(function() {
     console.log("dealerCards ", dealerCards);
     $("#dealercard0").attr("src", topCards[0].img);
     $("#dealercard1").attr("src", topCards[1].img);
-    $("#playercard0").attr("src", bottomCards[0].img);
-    $("#playercard1").attr("src", bottomCards[1].img);
+    $(".playercard").eq(0).attr("src", bottomCards[0].img);
+    $(".playercard").eq(1).attr("src", bottomCards[1].img);
     showPlayerScore(playerCards);
   }
 
@@ -100,13 +100,24 @@ $("document").ready(function() {
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
     $("#playerScore").html(playerScore);
+    if (playerScore === 21) {
+
+    } else if (playerScore > 21) {
+      console.log("player is bust", playerScore);
+    } else if (playerScore < 21) {
+      // gameplay continues
+    } else {
+      // wtf moment
+      console.log("I'm not sure what, but something broke with playerScore!");
+    }
   }
 
   function playerHit() {
     playerCards.push(generateRandomCard());
-    $("#playercard2").attr("src", playerCards[totalCards].img);
+    $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
+    totalCards++
+    console.log("totalCards:",totalCards);
     showPlayerScore(playerCards);
-
   }
 
 

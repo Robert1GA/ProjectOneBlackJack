@@ -10,10 +10,10 @@ class cards {
 var ALLCARDS = [];
 
   ALLCARDS.push(
-    card0 = new cards ("ace", "clubs", 11, "img/aceclubs.jpg"),
-    card1 = new cards ("ace", "diamonds", 11, "img/acediamonds.jpg"),
-    card2 = new cards ("ace", "hearts", 11, "img/acehearts.jpg"),
-    card3 = new cards ("ace", "spades", 11, "img/acespades.jpg"),
+    card0 = new cards ("ace", "clubs", 1, "img/aceclubs.jpg"),
+    card1 = new cards ("ace", "diamonds", 1, "img/acediamonds.jpg"),
+    card2 = new cards ("ace", "hearts", 1, "img/acehearts.jpg"),
+    card3 = new cards ("ace", "spades", 1, "img/acespades.jpg"),
 
     card4 = new cards ("two", "clubs", 2, "img/twoclubs.jpg"),
     card5 = new cards ("two", "diamonds", 2, "img/twodiamonds.jpg"),

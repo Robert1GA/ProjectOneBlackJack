@@ -3,6 +3,8 @@ $("document").ready(function() {
 
   var deck = [];
   deck = ALLCARDS;
+  var dealerCards = [];
+  var playerCards = [];
 
   $("#hit").toggle();
   $("#stay").toggle();
@@ -14,6 +16,7 @@ $("document").ready(function() {
   // event listener on the button that
   $("#dealCards").click(function(e){
     e.preventDefault();
+    console.log("DEAL click");
     startingCards();
     $("#dealCards").toggle();
     $("#hit").toggle();
@@ -23,6 +26,8 @@ $("document").ready(function() {
 
   $("#hit").click(function(e){
     e.preventDefault();
+    console.log("HIT click");
+    playerHit();
   });
 
   // event listener on the button that
@@ -47,8 +52,8 @@ $("document").ready(function() {
   }
 
   function startingCards() {
-    var dealerCards = [];
-    var playerCards = []
+    // var dealerCards = [];
+    // var playerCards = []
     dealerCards.push(generateRandomCard());
     playerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
@@ -63,20 +68,39 @@ $("document").ready(function() {
 
 
 
-  function displayCards(dealerCards,playerCards) {
-    $("#dealercard0").attr("src", dealerCards[0].img);
-    $("#dealercard1").attr("src", dealerCards[1].img);
-    $("#playercard0").attr ("src", playerCards[0].img);
-    $("#playercard1").attr ("src", playerCards[1].img);
+  function displayCards(topCards,bottomCards) {
+    console.log("dealerCards ", dealerCards);
+    $("#dealercard0").attr("src", topCards[0].img);
+    $("#dealercard1").attr("src", topCards[1].img);
+    $("#playercard0").attr ("src", bottomCards[0].img);
+    $("#playercard1").attr ("src", bottomCards[1].img);
+    showPlayerScore(playerCards);
   }
 
-  function calculateCards() {
+  function calculateScore(cards) {
+    var minScore = 0;
+    cards.forEach(function(card){
+      minScore += card.value;
+    });
 
+    var maxScore = minScore;
+    cards.forEach(function(card){
+      if (card.value === 1 && maxScore + 10 <= 21) {
+        maxScore += 10;
+      }
+    });
+    return maxScore;
   }
 
+  function showPlayerScore(cards) {
+    playerScore = calculateScore(cards);
+    $("#playerScore").html(playerScore);
+  }
 
-
-
+  function playerHit() {
+    playerCards.push(generateRandomCard());
+    displayCards();
+  }
 
 
 });

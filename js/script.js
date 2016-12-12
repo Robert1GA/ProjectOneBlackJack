@@ -25,12 +25,17 @@ $("document").ready(function() {
     console.log("player:",playerCards);
     console.log("dealers value",dealerCards[0].value+dealerCards[1].value);
     console.log("players value",playerCards[0].value+playerCards[1].value);
+    displayCards(dealerCards,playerCards);
   }
 
   startingCards();
 
-  $("#dealercard0").attr("src", ALLCARDS[0].img);
-  $("#playercard0").attr ("src", ALLCARDS[1].img);
+  function displayCards(dealerCards,playerCards) {
+    $("#dealercard0").attr("src", dealerCards[0].img);
+    $("#dealercard1").attr("src", dealerCards[1].img);
+    $("#playercard0").attr ("src", playerCards[0].img);
+    $("#playercard1").attr ("src", playerCards[1].img);
+  }
 
   function calculateCards() {
 

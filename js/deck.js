@@ -8,7 +8,7 @@ class cards {
 }
 
 var ALLCARDS = [];
-
+  // start all ACES at value 1.
   ALLCARDS.push(
     card0 = new cards ("ace", "clubs", 1, "img/aceclubs.jpg"),
     card1 = new cards ("ace", "diamonds", 1, "img/acediamonds.jpg"),
@@ -71,7 +71,7 @@ var ALLCARDS = [];
     card47 = new cards ("queen", "spades", 10, "img/queenspades.jpg"),
 
     card48 = new cards ("king", "clubs", 10, "img/kingclubs.jpg"),
-    card410 = new cards ("king", "diamonds", 10, "img/kingdiamonds.jpg"),
+    card49 = new cards ("king", "diamonds", 10, "img/kingdiamonds.jpg"),
     card50 = new cards ("king", "hearts", 10, "img/kinghearts.jpg"),
     card51 = new cards ("king", "spades", 10, "img/kingspades.jpg")
   );

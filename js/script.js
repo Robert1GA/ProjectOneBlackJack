@@ -7,15 +7,15 @@ $("document").ready(function() {
   var playerCards = [];
   var totalCards;
 
-  // Under starting conditions, playing buttons should be hidden
+  // Under starting conditions, player option buttons should be hidden, except Deal
   $("#hit").hide();
   $("#stand").hide();
   $("#double").hide();
   $("#split").hide();
-  console.log("deck card0:", deck[0]);
   console.log("deck length:", deck.length);
 
 
+  //BUTTON FUNCTIONS
   // event listener on the button to deal cards and initiate the game
   $("#dealCards").click(function(e){
     e.preventDefault();
@@ -28,13 +28,14 @@ $("document").ready(function() {
     $("#double").show();
   });
 
+  // event listener for Hit button
   $("#hit").click(function(e){
     e.preventDefault();
     console.log("HIT click");
     playerHit();
   });
 
-  // event listener on the button that
+  // event listener for Stand button
   $("#stand").click(function(e){
     e.preventDefault();
     stand();
@@ -52,35 +53,36 @@ $("document").ready(function() {
   });
 
 
+  // pull a random card and removes it from the deck array
   function generateRandomCard() {
     var rand = Math.round(Math.random() * (deck.length-1));
     var aCard = deck[rand];
     console.log("aCard:",aCard);
-    deck.splice(rand,1);  // pull the generated card from the deck; no re-use.
+    deck.splice(rand,1);  // pulled from deck
     return aCard;
   }
 
-
+  // starting deal. I believe this needs to be different from
+  // other functions in that there's no other time one card (dealer's) needs
+  // to be generated, but placed "facedown"
+  // ** will re-examine this assumption at a later time **
   function startingCards() {
-    // var dealerCards = [];
-    // var playerCards = []
     dealerCards.push(generateRandomCard());
     playerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
     playerCards.push(generateRandomCard());
     console.log("dealer:",dealerCards);
     console.log("player:",playerCards);
-    console.log("dealers value",dealerCards[0].value+dealerCards[1].value);
-    console.log("players value",playerCards[0].value+playerCards[1].value);
     console.log("new deck length:", deck.length);
     displayCards(dealerCards,playerCards);
     if (splitAvailable(playerCards)) {
-      $("#split").show();
+      $("#split").show();  // enable to Split button if player has two same value cards
     }
   }
 
+  // if player has two cards of equal value, can perform Split function
   function splitAvailable(card) {
-    return (card[0].value === card[1].value);
+    return (card[0].value === card[1].value);  //returns a boolean
   }
 
   function displayCards(topCards,bottomCards) {
@@ -89,7 +91,7 @@ $("document").ready(function() {
     $(".dealerCard").eq(1).attr("src", topCards[1].img);
     $(".playerCard").eq(0).attr("src", bottomCards[0].img);
     $(".playerCard").eq(1).attr("src", bottomCards[1].img);
-    showPlayerScore(playerCards);
+    showPlayerScore(playerCards);  // ** ???
   }
 
   // calculate the value of a hand, taking into account handling aces
@@ -101,7 +103,7 @@ $("document").ready(function() {
 
     var maxScore = minScore;
     cards.forEach(function(card){
-      // checks if making an ace value 11 busts.  if not, add 10 to value of ace.
+      // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
       if (card.value === 1 && maxScore + 10 <= 21) {
         maxScore += 10;
       }
@@ -109,6 +111,7 @@ $("document").ready(function() {
     console.log("maxscore", maxScore);
     return maxScore;
   }
+
 
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
@@ -122,7 +125,7 @@ $("document").ready(function() {
       stand();
     } else if (playerScore > 21) {
       console.log("player is bust", playerScore);
-      stand();
+      dealtoDealer();
     } else if (playerScore < 21) {
       // gameplay continues
     } else {
@@ -130,6 +133,7 @@ $("document").ready(function() {
       console.log("I'm not sure what broke with playerScore!");
     }
   }
+
 
   function playerHit() {
     disableFirstCardOptions()
@@ -141,8 +145,9 @@ $("document").ready(function() {
     showPlayerScore(playerCards);
   }
 
+
   function doubleDown() {
-    playerHit();
+    playerHit();  // player should only get one card on a double down.
     stand();
   }
 
@@ -152,15 +157,19 @@ $("document").ready(function() {
     dealtoDealer();
   }
 
+
+  // these are options that can only be played on first player decision
   function disableFirstCardOptions() {
     $("#double").attr("disabled","disabled");
     $("#split").attr("disabled","disabled");
   }
 
+
   function disableHitStand() {
     $("#hit").attr("disabled","disabled");
     $("#stand").attr("disabled","disabled");
   }
+
 
   function dealtoDealer() {
     $(".dealerCard").eq(0).attr("src", dealerCards[0].img);
@@ -177,10 +186,11 @@ $("document").ready(function() {
     detectWin();
   }
 
+
   function detectWin() {
     playerScore = calculateScore(playerCards);
     dealerScore = calculateScore(dealerCards);
-    if (playerScore > 21) {
+    if (playerScore > 21) {  // no way to win if player bust. This is needed her for double-down cases
       console.log("you bust",playerScore);
       playerBust();
     } else if (dealerScore > 21) {
@@ -196,6 +206,7 @@ $("document").ready(function() {
       console.log("I'm not sure what broke with detectWin!");
     }
   }
+
 
   function playerBust(){
     console.log("playerBust() function");

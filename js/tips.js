@@ -1,6 +1,6 @@
 function checkForTips(){
   playerScore = calculateScore(playerCards);
-  if (playerCards[0].value == playerCards[1].value) {
+  if ((playerCards[0].value == playerCards[1].value) && totalCards == 1) {
     if (playerCards[0].value == 1 || playerCards[0].value == 8) {
       console.log("split");
     } else if (playerCards[0].value == 10) {
@@ -258,7 +258,7 @@ function checkForTips(){
           console.log("stand");
           break;
       }
-    } else if (playerScore >= 13 || playerScore <= 16) {
+    } else if (playerScore >= 13 && playerScore <= 16) {
       switch (dealerCards[1].value) {
         case 2:
         case 3:

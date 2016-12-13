@@ -1,8 +1,7 @@
 $("document").ready(function() {
   console.log("all systems go!");
   // Starting conditions
-  var deck = [];
-  deck = ALLCARDS; // use a temporary deck made up of all Total Cards
+  var deck = []; // use a temporary deck made up of all Total Cards
   var dealerCards = [];
   var playerCards = [];
   var totalCards;
@@ -21,6 +20,9 @@ $("document").ready(function() {
     e.preventDefault();
     console.log("DEAL click");
     totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
+    shuffleCards();
+    clearCards();
+    clearScoreMessages();
     startingCards();
     $("#dealCards").toggle();  // hide the deal button just clicked.
     $("#hit").show();   // unhide the buttons necessary for gameplay.
@@ -48,8 +50,9 @@ $("document").ready(function() {
   });
 
   // event listener on split button
-  $("#double").click(function(e){
+  $("#split").click(function(e){
     e.preventDefault();
+    split();
   });
 
 
@@ -118,7 +121,7 @@ $("document").ready(function() {
     $("#playerScore").html(playerScore);
     if (playerScore === 21 && totalCards === 1) {
       console.log("BLACKJACK", playerScore);
-      alert("Blackjack!");
+      $("#results").html("BLACKJACK!");
       stand();
     } else if (playerScore === 21) {
       console.log("auto-stand", playerScore);
@@ -149,6 +152,10 @@ $("document").ready(function() {
   function doubleDown() {
     playerHit();  // player should only get one card on a double down.
     stand();
+  }
+
+  function split(){
+    console.log("user would like to split");
   }
 
 
@@ -190,17 +197,21 @@ $("document").ready(function() {
   function detectWin() {
     playerScore = calculateScore(playerCards);
     dealerScore = calculateScore(dealerCards);
-    if (playerScore > 21) {  // no way to win if player bust. This is needed her for double-down cases
+    if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
       console.log("you bust",playerScore);
       playerBust();
     } else if (dealerScore > 21) {
       console.log("dealer bust",dealerScore);
+      dealerBust();
     } else if (playerScore > dealerScore) {
       console.log("player wins", playerScore, dealerScore);
+      playerWin();
     } else if (playerScore < dealerScore) {
       console.log("player loses", playerScore, dealerScore);
+      playerLose();
     } else if (playerScore === dealerScore) {
       console.log("PUSH", playerScore, dealerScore);
+      playerPush();
     } else {
       // wtf moment
       console.log("I'm not sure what broke with detectWin!");
@@ -209,7 +220,64 @@ $("document").ready(function() {
 
 
   function playerBust(){
-    console.log("playerBust() function");
+    disableHitStand();
+    $("#results").html("BUST!");
+    nextGame();
+  }
+
+  function dealerBust(){
+    nextGame();
+  }
+
+  function playerWin() {
+    nextGame();
+  }
+
+  function playerLose() {
+    nextGame();
+  }
+
+  function playerPush() {
+    nextGame();
+  }
+
+  function nextGame() {
+    console.log("deck",deck.length);
+    console.log("Allcards",ALLCARDS.length, ALLCARDS.length/2);
+    dealerCards = [];
+    playerCards = [];
+    $("#hit").removeAttr("disabled");
+    $("#stand").removeAttr("disabled");
+    $("#double").removeAttr("disabled");
+    $("#split").removeAttr("disabled");
+    $("#dealCards").show();
+    $("#hit").hide();
+    $("#stand").hide();
+    $("#double").hide();
+    $("#split").hide();
+  }
+
+  function shuffleCards() {
+    console.log("SHUFFLE");
+    if (deck.length < (ALLCARDS.length / 2)) {
+      deck = [];
+      for(var s=0; s<ALLCARDS.length; s++){
+        deck.push(ALLCARDS[s]);
+      }
+    }
+  }
+
+  function clearCards() {
+    for(var i=0; i<7; i++) {
+      $(".playerCard").eq(i).attr("src", "");
+      $(".dealerCard").eq(i).attr("src", "");
+    }
+  }
+
+  function clearScoreMessages() {
+    $("#playerScore").html("&nbsp;");
+    $("#dealerScore").html("&nbsp;");
+    $("#results").html("&nbsp;");
   }
 
 });

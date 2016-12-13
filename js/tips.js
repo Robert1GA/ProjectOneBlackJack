@@ -108,7 +108,7 @@ function checkForTips(){
         case 7:
         case 10:
         case 1:
-          console.log("hit");
+          console.log("stand");
           break;
       }
     }
@@ -186,5 +186,96 @@ function checkForTips(){
       } else if (playerScore >= 20) {
         console.log("stand");
       }
+    } else if (playerScore < 8) {
+      console.log("hit");
+    } else if (playerScore == 8) {
+      switch (dealerCards[1].value) {
+        case 2:
+        case 3:
+        case 4:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 1:
+          console.log("hit");
+          break;
+        case 5:
+        case 6:
+          console.log("double");
+          break;
+      }
+    } else if (playerScore == 9) {
+      switch (dealerCards[1].value) {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+          console.log("double");
+          break;
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 1:
+          console.log("hit");
+          break;
+      }
+    } else if (playerScore == 10) {
+      switch (dealerCards[1].value) {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+          console.log("double");
+          break;
+        case 10:
+        case 1:
+          console.log("hit");
+          break;
+      }
+    } else if (playerScore == 11) {
+      console.log("double");
+    } else if (playerScore == 12) {
+      switch (dealerCards[1].value) {
+        case 2:
+        case 3:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 1:
+          console.log("hit");
+          break;
+        case 4:
+        case 5:
+        case 6:
+          console.log("stand");
+          break;
+      }
+    } else if (playerScore >= 13 || playerScore <= 16) {
+      switch (dealerCards[1].value) {
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+          console.log("stand");
+          break;
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 1:
+          console.log("hit");
+          break;
+      }
+    } else if (playerScore >= 17) {
+      console.log("stand");
     }
 }

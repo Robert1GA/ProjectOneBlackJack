@@ -1,4 +1,5 @@
-$("document").ready(function() {
+// $("document").ready(function() {
+
   console.log("all systems go!");
   // Starting conditions
   var deck = []; // use a temporary deck made up of all Total Cards
@@ -11,6 +12,7 @@ $("document").ready(function() {
   $("#stand").hide();
   $("#double").hide();
   $("#split").hide();
+  $("#tip").hide();
   console.log("deck length:", deck.length);
 
 
@@ -28,6 +30,7 @@ $("document").ready(function() {
     $("#hit").show();   // unhide the buttons necessary for gameplay.
     $("#stand").show();
     $("#double").show();
+    $("#tip").show();
   });
 
   // event listener for Hit button
@@ -53,6 +56,11 @@ $("document").ready(function() {
   $("#split").click(function(e){
     e.preventDefault();
     split();
+  });
+
+  $("#tip").click(function(e){
+    e.preventDefault();
+      checkForTips();
   });
 
 
@@ -201,15 +209,19 @@ $("document").ready(function() {
       console.log("you bust",playerScore);
       playerBust();
     } else if (dealerScore > 21) {
+      $("#results").html("Dealer Bust. Player win!");
       console.log("dealer bust",dealerScore);
       dealerBust();
     } else if (playerScore > dealerScore) {
+      $("#results").html("Player win!");
       console.log("player wins", playerScore, dealerScore);
       playerWin();
     } else if (playerScore < dealerScore) {
+      $("#results").html("Player lose.");
       console.log("player loses", playerScore, dealerScore);
       playerLose();
     } else if (playerScore === dealerScore) {
+      $("#results").html("Push.");
       console.log("PUSH", playerScore, dealerScore);
       playerPush();
     } else {
@@ -255,6 +267,7 @@ $("document").ready(function() {
     $("#stand").hide();
     $("#double").hide();
     $("#split").hide();
+    $("#tips").hide();
   }
 
   function shuffleCards() {
@@ -280,4 +293,7 @@ $("document").ready(function() {
     $("#results").html("&nbsp;");
   }
 
-});
+
+
+
+// });

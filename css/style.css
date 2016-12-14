@@ -1,9 +1,244 @@
-img {
-  border: solid black 2pt;
-  height: 150px;
-  width: 110px;
+body {
+  /*background-color: grey;*/
+  background: url(../img/blackjack-table2.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100% 85%;
+  width: 100%;
 }
 
-/*#double, #hit, #stay {
-  visibility: hidden;
-}*/
+.top {
+  /*border: solid green 2px;*/
+  height: 120px;
+  width: 100%;
+  position: relative;
+}
+
+img {
+  /*border: solid 2pt;*/
+  height: 130px;
+  width: 96px;
+}
+
+.contain {
+  width: 200px;
+  height: 140px;
+  position: relative;
+  /*border: solid blue 2px;*/
+  margin: 6% auto;
+  padding: 0;
+}
+
+#dealerHand {
+  /*border: solid orange 3px;*/
+  margin: 0 auto;
+  width: 100%;
+  height: 140px;
+  position: relative;
+  padding: 0;
+}
+
+
+#deal0 {
+  display: inline-block;
+  position: absolute;
+  left: 20%;
+  z-index: 1;
+}
+
+#deal1 {
+  position: absolute;
+  left: 35%;
+  z-index: 2;
+}
+
+#deal2 {
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+}
+
+#deal3 {
+  position: absolute;
+  left: 65%;
+  z-index: 4;
+}
+
+#deal4 {
+  position: absolute;
+  left: 80%;
+  z-index: 5;
+}
+
+#deal5 {
+  position: absolute;
+  left: 95%;
+  z-index: 6;
+}
+
+#deal6 {
+  position: absolute;
+  left: 110%;
+  z-index: 7;
+}
+
+#dealerScore {
+  /*border: solid black 3px;*/
+  display: inline-block;
+  position: absolute;
+  width: 25%;
+  margin: 0 0 10px 810px;
+  font-size: 20pt;
+  color: red;
+
+}
+
+#dealerResults {
+  color: red;
+  font-size: 30pt;
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  /*border: solid yellow 3px;*/
+  padding: 0;
+  z-index: 999;
+}
+
+#player {
+  width: 200px;
+  height: 180px;
+  position: relative;
+  border: solid blue 2px;
+  margin: 1% auto;
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  border: red solid 3px;
+}
+
+#playerHand {
+  margin: 0 auto;
+  width: 100%;
+  height: 140px;
+  position: relative;
+  border: solid green 2px;
+}
+
+#card0 {
+  position: absolute;
+  display: inline-block;
+  left: 20%;
+  z-index: 1;
+}
+
+#card1 {
+  position: absolute;
+  display: inline-block;
+  left: 35%;
+  z-index: 2;
+}
+
+#card2 {
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  z-index: 3;
+}
+
+#card3 {
+  position: absolute;
+  display: inline-block;
+  left: 65%;
+  z-index: 4;
+}
+
+#card4 {
+  position: absolute;
+  display: inline-block;
+  left: 80%;
+  z-index: 5;
+}
+
+#card5 {
+  position: absolute;
+  display: inline-block;
+  left: 95%;
+  z-index: 6;
+}
+
+#card6 {
+  position: absolute;
+  display: inline-block;
+  left: 110%;
+  z-index: 7;
+}
+
+
+#playerSplit {
+  width: 200px;
+  height: 180px;
+  position: relative;
+  border: solid purple 4px;
+  margin: 6% 10%;
+  display: inline-block;
+  padding: 0;
+  /*height: 140px;*/
+}
+
+#playerHandSplit {
+  margin: 0 auto;
+  width: 100%;
+  height: 140px;
+  position: relative;
+  border: solid green 2px;
+}
+
+#cardSplit0 {
+  position: absolute;
+  display: inline-block;
+  left: 20%;
+  z-index: 1;
+}
+
+#cardSplit1 {
+  position: absolute;
+  display: inline-block;
+  left: 35%;
+  z-index: 2;
+}
+
+#cardSplit2 {
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  z-index: 3;
+}
+
+#cardSplit3 {
+  position: absolute;
+  display: inline-block;
+  left: 65%;
+  z-index: 4;
+}
+
+#cardSplit4 {
+  position: absolute;
+  display: inline-block;
+  left: 80%;
+  z-index: 5;
+}
+
+#cardSplit5 {
+  position: absolute;
+  display: inline-block;
+  left: 95%;
+  z-index: 6;
+}
+
+#cardSplit6 {
+  position: absolute;
+  display: inline-block;
+  left: 110%;
+  z-index: 7;
+}

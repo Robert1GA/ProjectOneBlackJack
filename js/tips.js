@@ -1,4 +1,4 @@
-function checkForTips(){
+function checkForHints(){
   playerScore = calculateScore(playerCards);
   if ((playerCards[0].value == playerCards[1].value) && totalCards == 1) {
     if (playerCards[0].value == 1 || playerCards[0].value == 8) {

@@ -92,7 +92,7 @@ img:not([src]) {
   z-index: 7;
 }
 
-#dealerScore {
+.dealerScore {
   /*border: solid black 3px;*/
   display: inline-block;
   position: absolute;
@@ -102,7 +102,7 @@ img:not([src]) {
   color: red;
 }
 
-#dealerResults {
+.dealerResults {
   color: red;
   font-size: 30pt;
   font-weight: bold;
@@ -114,7 +114,7 @@ img:not([src]) {
   padding: 0;
 }
 
-#playerSplitResults {
+.playerSplitResults {
   color: white;
   font-size: 30pt;
   font-weight: bold;
@@ -128,7 +128,7 @@ img:not([src]) {
   position: absolute;
 }
 
-#playerResults {
+.playerResults {
   color: white;
   font-size: 30pt;
   font-weight: bold;
@@ -180,7 +180,7 @@ img:not([src]) {
 }
 
 
-#playerScore, #playerSplitScore {
+.playerScore, .playerSplitScore {
   display: inline-block;
   font-size: 20pt;
   color: white;

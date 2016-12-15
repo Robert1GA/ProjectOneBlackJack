@@ -293,7 +293,7 @@ function hintDouble() {
 }
 
 function hintSplit() {
-  $("#modal").html("You should split. Hit if split not available.");
+  $("#modal").html("You should split.");
 }
 
 

@@ -88,10 +88,9 @@
           <button class="btn btn-info"id="hint">Hint?</button>
           <div id="bank">
             <form>
-              <p>Amount available: </p>
-              <label>How much to bet: </label>
-
-                  <input type="number" name="money" min="20" max="500" step="10" value="20">
+              <p>Amount available: $ <span id=available>&nbsp;</span></p>
+              <label>How much to bet: $ </label>
+                  <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
 
             </form>
           </div>
@@ -109,6 +108,11 @@
         </div>
 
       </div>
+      <footer>
+        <nav class="clearfix">
+        <a href="#Instructions">How to Play</a>
+        <a href="#Game">Cheatsheet</a>
+      </footer>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -2,26 +2,33 @@
 
   console.log("all systems go!");
   // Starting conditions
-  var deck = []; // use a temporary deck made up of all Total Cards
+  var deck = []; // use a temporary deck that can be re-shuffled
   var dealerCards = [];
   var playerCards = [];
   var totalCards;
+  var amountLeft = 500;
+  var bet;
 
-  // Under starting conditions, player option buttons should be hidden, except Deal
+  // Under starting conditions, player option
+  // buttons should be hidden, except Deal
   $("#hit").hide();
   $("#stand").hide();
   $("#double").hide();
   $("#split").hide();
   $("#hint").hide();
   console.log("deck length:", deck.length);
+  displayAmtLeft();
+  $("#modal").html("Place your bet below. Then press 'Deal'.")
+  $("#hintModal").css("display", "block");
 
 
-  //BUTTON FUNCTIONS
-  // event listener on the button to deal cards and initiate the game
+// These are event listeners for all buttons
+// =========================================
   $("#dealCards").click(function(e) {
     e.preventDefault();
     console.log("DEAL click");
     totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
+    placeBet();
     shuffleCards();
     clearCards();
     clearScoreMessages();
@@ -33,28 +40,27 @@
     $("#hint").show();
   });
 
-  // event listener for Hit button
+
   $("#hit").click(function(e) {
     e.preventDefault();
     console.log("HIT click");
     playerHit();
   });
 
-  // event listener for Stand button
   $("#stand").click(function(e) {
     e.preventDefault();
     stand();
   });
 
-  // event listener on double-down button
   $("#double").click(function(e) {
     e.preventDefault();
     doubleDown();
   });
 
-  // event listener on split button
   $("#split").click(function(e) {
     e.preventDefault();
+    $("#modal").html("This feature coming soon!")
+    $("#hintModal").css("display", "block");
     split();
   });
 
@@ -65,7 +71,7 @@
   });
 
 
-  // pull a random card and removes it from the deck array
+// pull a random card and removes it from the deck array
   function generateRandomCard() {
     var rand = Math.round(Math.random() * (deck.length-1));
     var aCard = deck[rand];
@@ -162,6 +168,7 @@
 
 
   function doubleDown() {
+    bet *= 2;
     playerHit();  // player should only get one card on a double down.
     stand();
   }
@@ -173,7 +180,8 @@
 
   function stand() {
     disableHitStand();
-    dealtoDealer();
+    setTimeout(dealtoDealer, 100);
+    clearTimeout();
   }
 
 
@@ -194,9 +202,9 @@
   }
 
   function dealtoDealer() {
-    showHoleCard();
     var counter = 2;
     var dealerScore = calculateScore(dealerCards);
+    showHoleCard();
     while (dealerScore < 17) {
       console.log("dealer",dealerCards);
       dealerCards.push(generateRandomCard());
@@ -226,6 +234,7 @@
     } else if (playerScore > dealerScore) {
       playerWin();
     } else if (playerScore < dealerScore) {
+      console.log("player lose under detect win");
       playerLose();
     } else if (playerScore === dealerScore) {
       playerPush();
@@ -241,6 +250,8 @@
     detectWin();
   }
 
+
+// Game results and payouts ====================
   function playerBust() {
     disableHitStand();
     $("#playerResults").html("Player BUST!");
@@ -248,31 +259,58 @@
   }
 
   function dealerBust() {
+    var win = bet*2;
     $("#dealerResults").html("Dealer Bust.");
-    $("#playerResults").html("Player win!")
+    $("#playerResults").html("Player win $ " + win + "!")
+    winBet(win);
     nextGame();
   }
 
   function playerWin() {
-    $("#playerResults").html("Player win!");
+    var win = bet*2;
+    $("#playerResults").html("Player win $ " + win +"!");
+    winBet(win);
     nextGame();
   }
 
   function playerLose() {
     $("#playerResults").html("Player lose.");
+    console.log("player lose");
     nextGame();
   }
 
   function playerPush() {
     $("#playerResults").html("Push.");
+    winBet(bet);
     nextGame();
   }
 
   function blackjackWin() {
-    $("#playerResults").html("Blackjack! Player win!");
-    setTimeout(nextGame, 100);
+    var win = (bet*3/2)+bet
+    $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+    setTimeout(nextGame, 100);  //need a quick timout to delay DOM
     clearTimeout();
+    amountLeft += win;
+    displayAmtLeft();
   }
+
+  function displayAmtLeft() {
+    $("#available").html(amountLeft);
+  }
+
+  function placeBet() {
+    bet = parseInt($("#bet").val());
+    $("#bet").prop("disabled",true);
+    amountLeft -= bet;
+    displayAmtLeft();
+  }
+
+  function winBet(amt) {
+    amountLeft += amt;
+    displayAmtLeft();
+  }
+
+// reset settings to prepare for next game & bet =====
 
   function nextGame() {
     console.log("deck",deck.length);
@@ -284,12 +322,13 @@
     $("#double").removeAttr("disabled");
     $("#split").removeAttr("disabled");
     $("#dealCards").show();
-    console.log($("#dealCards"));
     $("#hit").hide();
     $("#stand").hide();
     $("#double").hide();
     $("#split").hide();
     $("#hint").hide();
+    $("#bet").prop("disabled",false);
+    console.log("next game function run");
   }
 
   function shuffleCards() {
@@ -316,7 +355,6 @@
     $("#playerResults").html("&nbsp;");
     $("#dealerResults").html("&nbsp;");
   }
-
 
 
 

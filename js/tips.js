@@ -2,9 +2,9 @@ function checkForHints(){
   playerScore = calculateScore(playerCards);
   if ((playerCards[0].value == playerCards[1].value) && totalCards == 1) {
     if (playerCards[0].value == 1 || playerCards[0].value == 8) {
-      console.log("split");
+      hintSplit();
     } else if (playerCards[0].value == 10) {
-      console.log("stand");
+      hintStand();
     } else if (playerCards[0].value == 2) {
       switch (dealerCards[1].value) {
         case 2:
@@ -13,13 +13,13 @@ function checkForHints(){
         case 5:
         case 6:
         case 7:
-          console.log("split");
+          hintSplit();
           break;
         case 8:
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerCards[0].value == 3) {
@@ -31,12 +31,12 @@ function checkForHints(){
         case 6:
         case 7:
         case 8:
-          console.log("split");
+          hintSplit();
           break;
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerCards[0].value == 4) {
@@ -44,7 +44,7 @@ function checkForHints(){
         case 4:
         case 5:
         case 6:
-          console.log("split");
+          hintSplit();
           break;
         case 2:
         case 3:
@@ -53,11 +53,11 @@ function checkForHints(){
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerCards[0].value ==  5) {
-      console.log("double");
+      hintDouble();
     } else if (playerCards[0].value == 6) {
       switch (dealerCards[1].value) {
         case 2:
@@ -66,13 +66,13 @@ function checkForHints(){
         case 5:
         case 6:
         case 7:
-          console.log("split");
+          hintSplit();
           break;
         case 8:
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerCards[1].value == 7) {
@@ -84,14 +84,14 @@ function checkForHints(){
         case 6:
         case 7:
         case 8:
-          console.log("split");
+          hintSplit();
           break;
         case 9:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
         case 10:
-          console.log("stand");
+          hintStand();
           break;
       }
     } else if (playerCards[1].value == 9) {
@@ -103,12 +103,12 @@ function checkForHints(){
         case 6:
         case 8:
         case 9:
-          console.log("split");
+          hintSplit();
           break;
         case 7:
         case 10:
         case 1:
-          console.log("stand");
+          hintStand();
           break;
       }
     }
@@ -122,12 +122,12 @@ function checkForHints(){
           case 9:
           case 10:
           case 1:
-            console.log("hit");
+            hintHit();
             break;
           case 4:
           case 5:
           case 6:
-            console.log("double");
+            hintDouble();
             break;
         }
       } else if (playerScore==17) {
@@ -137,14 +137,14 @@ function checkForHints(){
           case 4:
           case 5:
           case 6:
-            console.log("double");
+            hintDouble();
             break;
           case 7:
           case 8:
           case 9:
           case 10:
           case 1:
-            console.log("hit");
+            hintHit();
             break;
         }
       } else if (playerScore==18) {
@@ -153,23 +153,23 @@ function checkForHints(){
           case 7:
           case 8:
           case 1:
-            console.log("stand");
+            hintStand();
             break;
           case 3:
           case 4:
           case 5:
           case 6:
-            console.log("double");
+            hintDouble();
             break;
           case 9:
           case 10:
-              console.log("hit");
+              hintHit();
               break;
         }
       } else if (playerScore == 19) {
         switch (dealerCards[1].value) {
           case 6:
-            console.log("double");
+            hintDouble();
             break;
           case 2:
           case 3:
@@ -180,14 +180,14 @@ function checkForHints(){
           case 9:
           case 10:
           case 1:
-            console.log("stand");
+            hintStand();
             break;
         }
       } else if (playerScore >= 20) {
-        console.log("stand");
+        hintStand();
       }
     } else if (playerScore < 8) {
-      console.log("hit");
+      hintHit();
     } else if (playerScore == 8) {
       switch (dealerCards[1].value) {
         case 2:
@@ -198,11 +198,11 @@ function checkForHints(){
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
         case 5:
         case 6:
-          console.log("double");
+          hintDouble();
           break;
       }
     } else if (playerScore == 9) {
@@ -212,14 +212,14 @@ function checkForHints(){
         case 4:
         case 5:
         case 6:
-          console.log("double");
+          hintDouble();
           break;
         case 7:
         case 8:
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerScore == 10) {
@@ -232,15 +232,15 @@ function checkForHints(){
         case 7:
         case 8:
         case 9:
-          console.log("double");
+          hintDouble();
           break;
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerScore == 11) {
-      console.log("double");
+      hintDouble();
     } else if (playerScore == 12) {
       switch (dealerCards[1].value) {
         case 2:
@@ -250,12 +250,12 @@ function checkForHints(){
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
         case 4:
         case 5:
         case 6:
-          console.log("stand");
+          hintStand();
           break;
       }
     } else if (playerScore >= 13 && playerScore <= 16) {
@@ -265,17 +265,51 @@ function checkForHints(){
         case 4:
         case 5:
         case 6:
-          console.log("stand");
+          hintStand();
           break;
         case 7:
         case 8:
         case 9:
         case 10:
         case 1:
-          console.log("hit");
+          hintHit();
           break;
       }
     } else if (playerScore >= 17) {
-      console.log("stand");
+      hintStand();
+    }
+}
+
+function hintStand() {
+  $("#modal").html("You should stand.");
+}
+
+function hintHit() {
+  $("#modal").html("You should hit.");
+}
+
+function hintDouble() {
+  $("#modal").html("You should double down. Hit if double not available.");
+}
+
+function hintSplit() {
+  $("#modal").html("You should split. Hit if split not available.");
+}
+
+
+var modal = document.getElementById('hintModal');
+var span = document.getElementsByClassName("close")[0];
+
+// closes the modal
+span.onclick = function() {
+    // modal.style.display = "none";
+    $("#hintModal").css("display","none");
+}
+
+// closes the modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        // $("#hintModal").css("display","none");
     }
 }

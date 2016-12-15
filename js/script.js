@@ -61,6 +61,7 @@
   $("#hint").click(function(e) {
     e.preventDefault();
       checkForHints();
+      $("#hintModal").css("display", "block");
   });
 
 
@@ -79,12 +80,11 @@
   // ** will re-examine this assumption at a later time **
   function startingCards() {
     dealerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
-    playerCards.push(deck[0]);
-    playerCards.push(deck[deck.length-1]);
-
+    playerCards.push(generateRandomCard());
+    playerCards.push(generateRandomCard());
+    // playerCards.push(deck[0]);
+    // playerCards.push(deck[deck.length-1]);
     console.log("dealer:",dealerCards);
     console.log("player:",playerCards);
     console.log("new deck length:", deck.length);
@@ -218,7 +218,8 @@
       dealerBust();
     } else if (playerScore == 21 && totalCards == 1) {
       if (dealerScore == 21) {
-        playerPush();
+        setTimeout(playerPush, 100);
+        clearTimeout();
       } else {
         blackjackWin();
       }

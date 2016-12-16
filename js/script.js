@@ -138,7 +138,7 @@
     if (score === 21 && totalCards === 1) {
       console.log("BLACKJACK");
       $("#results").html("BLACKJACK!");
-      blackjack();
+      blackjack(cards);
     } else if (score === 21) {
       console.log("auto-stand");
       stand();
@@ -249,142 +249,122 @@
     playerScore = calculateScore(cards);
     dealerScore = calculateScore(dealerCards);
     if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
-      if (cards === playerCardsSplit) {
-        playerSplitBust();
-      } else {
         playerBust(cards);
-      }
     } else if (dealerScore > 21) {
-      if (cards === playerCardsSplit) {
-        dealerSplitBust();
-      } else {
-        dealerBust();
-      }
+        dealerBust(cards);
     } else if (playerScore == 21 && totalCards == 1) {
       if (dealerScore == 21) {
         setTimeout(playerPush, 100);
         clearTimeout();
       } else {
-        blackjackWin();
+        blackjackWin(cards);
       }
     } else if (playerScore > dealerScore) {
-      if (cards === playerCardsSplit) {
-        playerSplitWin();
-      } else {
-        playerWin();
-      }
+        playerWin(cards);
     } else if (playerScore < dealerScore) {
-      if (cards === playerCardsSplit) {
-        playerSplitLose();
-      } else {
-        playerLose();
-      }
+        playerLose(cards);
     } else if (playerScore === dealerScore) {
-      if (cards === playerCardsSplit) {
-        playerSplitPush();
-      } else {
-        playerPush();
-      }
+        playerPush(cards);
     } else {
       // wtf moment
       console.log("broken detect win function!");
     }
   }
 
-  function blackjack() {
-    disableHitStand();
-    showHoleCard();
-    detectWin(playerCards);
+  function blackjack(cards) {
+    if (cards === playerCards && betSplit != 0) {
+      detectWin(playerCardsSplit);
+    } else {
+      disableHitStand();
+      showHoleCard();
+      detectWin(playerCards);
+    }
   }
-
 
 // Game results and payouts ====================
-  function playerBust() {
-    disableHitStand();
-    $("#playerResults").html("Player BUST!");
+  function playerBust(cards) {
     if (cards == playerCardsSplit) {
-      console.log("bust on the split");
       $("#playerSplitResults").html("This hand BUST!")
+      detectWin(playerCards);
+    } else {
+      disableHitStand();
+      $("#playerResults").html("Player BUST!");
+      nextGame();
     }
-    nextGame();
   }
 
-  function dealerBust() {
+  function dealerBust(cards) {
     var win = bet*2;
-    $("#dealerResults").html("Dealer Bust.");
-    $("#playerResults").html("Player win $ " + win + "!")
-    winBet(win);
-    nextGame();
+    if (cards === playerCardsSplit) {
+      $("#dealerResults").html("Dealer Bust.");
+      $("#playerSplitResults").html("Player win $ " + win + "!")
+      winBet(win);
+      detectWin(playerCards);
+    } else {
+      $("#dealerResults").html("Dealer Bust.");
+      $("#playerResults").html("Player win $ " + win + "!")
+      winBet(win);
+      nextGame();
+    }
   }
 
-  function playerWin() {
+  function playerWin(cards) {
     var win = bet*2;
-    $("#playerResults").html("Player win $ " + win +"!");
-    winBet(win);
-    nextGame();
+    if (cards === playerCardsSplit) {
+      $("#playerSplitResults").html("Player win $ " + win +"!");
+      winBet(win);
+      detectWin(playerCards);
+    } else {
+      $("#playerResults").html("Player win $ " + win +"!");
+      winBet(win);
+      nextGame();
+    }
   }
 
-  function playerLose() {
-    console.log(cards);
-    $("#playerResults").html("Player lose.");
-    if (cards == playerCardsSplit) {
-      console.log("player lose on the split");
+  function playerLose(cards) {
+    if (cards === playerCardsSplit) {
       $("#playerSplitResults").html("This hand lose.")
+      detectWin(playerCards);
+    } else {
+      $("#playerResults").html("Player lose.");
+      nextGame();
     }
-    nextGame();
   }
 
-  function playerPush() {
-    $("#playerResults").html("Push.");
-    winBet(bet);
-    nextGame();
+  function playerPush(cards) {
+    if (cards === playerCardsSplit) {
+      $("#playerSplitResults").html("Push.");
+      winBet(bet);
+      detectWin(playerCards);
+    } else {
+      $("#playerResults").html("Push.");
+      winBet(bet);
+      nextGame();
+    }
   }
 
-  function blackjackWin() {
+  function blackjackWin(cards) {
     var win = (bet*3/2)+bet
-    $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
-    setTimeout(nextGame, 100);  //need a quick timout to delay DOM
-    clearTimeout();
-    amountLeft += win;
-    displayAmtLeft();
+    if (cards === playerCardsSplit) {
+      $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+      setTimeout(detectWin(playerCards), 100);  //need a quick timout to delay DOM
+      clearTimeout();
+      amountLeft += win;
+      displayAmtLeft();
+    } else {
+      $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+      setTimeout(nextGame, 100);  //need a quick timout to delay DOM
+      clearTimeout();
+      amountLeft += win;
+      displayAmtLeft();
+    }
   }
 
 // duplicate win results - temporary
-  function playerSplitBust() {
-    console.log(cards);
-    disableHitStand();
-    $("#playerSplitResults").html("This hand BUST!")
-  }
-
-  function dealerSplitBust() {
-    var win = betSplit*2;
-    $("#dealerResults").html("Dealer Bust.");
-    $("#playerSplitResults").html("Player win $ " + win + "!")
-    winBet(win);
-  }
-
-  function playerSplitWin() {
-    var win = betSplit*2;
-    $("#playerSplitResults").html("Player win $ " + win +"!");
-    winBet(win);
-  }
-
-  function playerSplitLose() {
-    $("#playerSplitResults").html("This hand lose.")
-  }
-
-  function playerSplitPush() {
-    $("#playerSplitResults").html("Push.");
-    winBet(bet);
-  }
-
   function blackjackSplitWin() {
     var win = (betSplit*3/2)+betSplit
-    $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
-    setTimeout(nextGame, 100);  //need a quick timout to delay DOM
-    clearTimeout();
-    amountLeft += win;
-    displayAmtLeft();
+
+
   }
 
   function displayAmtLeft() {

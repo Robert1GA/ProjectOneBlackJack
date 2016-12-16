@@ -1,16 +1,18 @@
 // $("document").ready(function() {
 
   console.log("all systems go!");
-  // Starting conditions
+  // variable declarations
   var deck = []; // use a temporary deck that can be re-shuffled
   var dealerCards = [];
   var playerCards = [];
+  var playerCardsSplit = [];
   var totalCards;
   var amountLeft = 500;
   var bet;
+  var betSplit = 0;
+  var splitOn = false;
 
-  // Under starting conditions, player option
-  // buttons should be hidden, except Deal
+  // Starting game - hide buttons except deal
   $("#hit").hide();
   $("#stand").hide();
   $("#double").hide();
@@ -59,8 +61,6 @@
 
   $("#split").click(function(e) {
     e.preventDefault();
-    $("#modal").html("This feature coming soon!")
-    $("#hintModal").css("display", "block");
     split();
   });
 
@@ -87,13 +87,12 @@
   function startingCards() {
     dealerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
+    // playerCards.push(generateRandomCard());
+    // playerCards.push(generateRandomCard());
     // playerCards.push(deck[0]);
     // playerCards.push(deck[deck.length-1]);
-    console.log("dealer:",dealerCards);
-    console.log("player:",playerCards);
-    console.log("new deck length:", deck.length);
+    playerCards.push(deck[4]);
+    playerCards.push(deck[5]);
     displayCards(dealerCards,playerCards);
   }
 
@@ -115,7 +114,8 @@
 
     var maxScore = minScore;
     cards.forEach(function(card) {
-      // checks if setting an ace value to 11 busts the hand. if not, add 10 to value of ace.
+      // checks if setting an ace value to 11 busts the hand.
+      // if not, add 10 to value of ace.
       if (card.value === 1 && maxScore + 10 <= 21) {
         maxScore += 10;
       }
@@ -124,48 +124,50 @@
     return maxScore;
   }
 
-
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
-    $("#playerScore").html(playerScore);
-    if (playerScore === 21 && totalCards === 1) {
-      console.log("BLACKJACK", playerScore);
+    if (!splitOn) {
+      $("#playerScore").html(playerScore);
+    } else if (splitOn) {
+      $("#playerSplitScore").html(playerScore);
+    }
+    evaluateOptions(playerScore,cards);
+  }
+
+  function evaluateOptions(score,cards) {
+    // $("#playerScore").html(score);
+    if (score === 21 && totalCards === 1) {
+      console.log("BLACKJACK");
       $("#results").html("BLACKJACK!");
       blackjack();
-    } else if (playerScore === 21) {
-      console.log("auto-stand", playerScore);
+    } else if (score === 21) {
+      console.log("auto-stand");
       stand();
-    } else if (playerScore > 21) {
-      console.log("player is bust", playerScore);
+    } else if (score > 21) {
       stand();
-    } else if (playerScore < 21) {
-      // gameplay continues
-      if (splitAvailable(playerCards)) {
-        $("#split").show();  // enable to Split button if player has two same value cards
+    } else if (score < 21) {
+      if ((cards[0].value === cards[1].value) && totalCards == 1) {
+        $("#split").show();
       }
-      console.log("continue");
     } else {
-      // wtf moment
-      console.log("I'm not sure what broke with playerScore!");
+      console.log("something is broken");
     }
-
   }
 
-  // if player has two cards of equal value, can perform Split function
-  function splitAvailable(card) {
-    return (card[0].value === card[1].value);  //returns a boolean
-  }
-
+  // Game action ===============================================
   function playerHit() {
     disableFirstCardOptions()
-    playerCards.push(generateRandomCard());
     totalCards++
-    $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
-    console.log("totalCards:",totalCards);
-    console.log($(".playerCard").eq(totalCards));
-    showPlayerScore(playerCards);
+    if (!splitOn) {
+      playerCards.push(generateRandomCard());
+      $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
+      showPlayerScore(playerCards);
+    } else if (splitOn) {
+      playerCardsSplit.push(generateRandomCard());
+      $(".playerCardSplit").eq(totalCards).attr("src", playerCardsSplit[totalCards].img);
+      showPlayerScore(playerCardsSplit);
+    }
   }
-
 
   function doubleDown() {
     bet *= 2;
@@ -174,23 +176,45 @@
   }
 
   function split() {
-    console.log("user would like to split");
+    $("#split").attr("disabled","disabled");
+    $("#double").attr("disabled","disabled"); // **temporary
+    betSplit = bet;
+    amountLeft -= betSplit;
+    displayAmtLeft();
+    playerCardsSplit.push(playerCards.pop());
+    playerCards.push(generateRandomCard());
+    $(".playerCard").eq(1).attr("src", playerCards[1].img);
+    $(".playerCardSplit").eq(0).attr("src", playerCardsSplit[0].img);
+    showPlayerScore(playerCards);
   }
 
 
   function stand() {
-    disableHitStand();
-    setTimeout(dealtoDealer, 100);
-    clearTimeout();
+    console.log(playerCardsSplit.length);
+    console.log(splitOn);
+    if (betSplit !== 0 && !splitOn) {
+      console.log("standing with split to go");
+      totalCards = 1;
+      splitOn = true;
+      playerCardsSplit.push(generateRandomCard());
+      console.log(playerCards)
+      $(".playerCardSplit").eq(1).attr("src", playerCardsSplit[1].img);
+      showPlayerScore(playerCardsSplit);
+    } else {
+      console.log("stand - no split");
+      disableHitStand();
+      setTimeout(dealtoDealer, 100);
+      clearTimeout();
+    }
   }
 
+  //  Game Action ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   // these are options that can only be played on first player decision
   function disableFirstCardOptions() {
     $("#double").attr("disabled","disabled");
     $("#split").attr("disabled","disabled");
   }
-
 
   function disableHitStand() {
     $("#hit").attr("disabled","disabled");
@@ -213,17 +237,30 @@
       counter++;
     }
     $("#dealerScore").html(dealerScore);
-    detectWin();
+    if (splitOn) {
+      detectWin(playerCardsSplit);
+    }
+    detectWin(playerCards);
   }
 
-
-  function detectWin() {
-    playerScore = calculateScore(playerCards);
+  function detectWin(cards) {
+    console.log("detect win; are these true/false?");
+    console.log(cards === playerCardsSplit);
+    console.log(cards === playerCards);
+    playerScore = calculateScore(cards);
     dealerScore = calculateScore(dealerCards);
     if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
-      playerBust();
+      if (cards === playerCardsSplit) {
+        playerSplitBust();
+      } else {
+        playerBust(cards);
+      }
     } else if (dealerScore > 21) {
-      dealerBust();
+      if (cards === playerCardsSplit) {
+        dealerSplitBust();
+      } else {
+        dealerBust();
+      }
     } else if (playerScore == 21 && totalCards == 1) {
       if (dealerScore == 21) {
         setTimeout(playerPush, 100);
@@ -232,15 +269,26 @@
         blackjackWin();
       }
     } else if (playerScore > dealerScore) {
-      playerWin();
+      if (cards === playerCardsSplit) {
+        playerSplitWin();
+      } else {
+        playerWin();
+      }
     } else if (playerScore < dealerScore) {
-      console.log("player lose under detect win");
-      playerLose();
+      if (cards === playerCardsSplit) {
+        playerSplitLose();
+      } else {
+        playerLose();
+      }
     } else if (playerScore === dealerScore) {
-      playerPush();
+      if (cards === playerCardsSplit) {
+        playerSplitPush();
+      } else {
+        playerPush();
+      }
     } else {
       // wtf moment
-      console.log("I'm not sure what broke with detectWin!");
+      console.log("broken detect win function!");
     }
   }
 
@@ -255,6 +303,10 @@
   function playerBust() {
     disableHitStand();
     $("#playerResults").html("Player BUST!");
+    if (cards == playerCardsSplit) {
+      console.log("bust on the split");
+      $("#playerSplitResults").html("This hand BUST!")
+    }
     nextGame();
   }
 
@@ -274,8 +326,12 @@
   }
 
   function playerLose() {
+    console.log(cards);
     $("#playerResults").html("Player lose.");
-    console.log("player lose");
+    if (cards == playerCardsSplit) {
+      console.log("player lose on the split");
+      $("#playerSplitResults").html("This hand lose.")
+    }
     nextGame();
   }
 
@@ -287,6 +343,44 @@
 
   function blackjackWin() {
     var win = (bet*3/2)+bet
+    $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+    setTimeout(nextGame, 100);  //need a quick timout to delay DOM
+    clearTimeout();
+    amountLeft += win;
+    displayAmtLeft();
+  }
+
+// duplicate win results - temporary
+  function playerSplitBust() {
+    console.log(cards);
+    disableHitStand();
+    $("#playerSplitResults").html("This hand BUST!")
+  }
+
+  function dealerSplitBust() {
+    var win = betSplit*2;
+    $("#dealerResults").html("Dealer Bust.");
+    $("#playerSplitResults").html("Player win $ " + win + "!")
+    winBet(win);
+  }
+
+  function playerSplitWin() {
+    var win = betSplit*2;
+    $("#playerSplitResults").html("Player win $ " + win +"!");
+    winBet(win);
+  }
+
+  function playerSplitLose() {
+    $("#playerSplitResults").html("This hand lose.")
+  }
+
+  function playerSplitPush() {
+    $("#playerSplitResults").html("Push.");
+    winBet(bet);
+  }
+
+  function blackjackSplitWin() {
+    var win = (betSplit*3/2)+betSplit
     $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
     setTimeout(nextGame, 100);  //need a quick timout to delay DOM
     clearTimeout();
@@ -309,14 +403,16 @@
     amountLeft += amt;
     displayAmtLeft();
   }
+// Game results and payouts ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-// reset settings to prepare for next game & bet =====
 
+// reset settings fucntions for next game  =====
   function nextGame() {
     console.log("deck",deck.length);
-    console.log("Allcards",ALLCARDS.length, ALLCARDS.length/2);
     dealerCards = [];
     playerCards = [];
+    playerCardsSplit = [];
+    splitOn = false;
     $("#hit").removeAttr("disabled");
     $("#stand").removeAttr("disabled");
     $("#double").removeAttr("disabled");
@@ -328,12 +424,11 @@
     $("#split").hide();
     $("#hint").hide();
     $("#bet").prop("disabled",false);
-    console.log("next game function run");
   }
 
   function shuffleCards() {
     console.log("SHUFFLE");
-    if (deck.length < (ALLCARDS.length / 2)) {
+    if (deck.length < (ALLCARDS.length - 15)) {  // CHANGE THIS BACK: ALLCARDS.length / 2
       deck = [];
       for(var s=0; s<ALLCARDS.length; s++) {
         deck.push(ALLCARDS[s]);
@@ -354,8 +449,10 @@
     $("#dealerScore").html("&nbsp;");
     $("#playerResults").html("&nbsp;");
     $("#dealerResults").html("&nbsp;");
+    $("#playerSplitScore").html("&nbsp;");
+    $("#playerSplitResults").html("&nbsp;");
   }
-
+// ^^^^^ reset settings fucntions for next game ^^^^^
 
 
 // });

@@ -86,10 +86,10 @@
   function startingCards() {
     dealerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
-    playerCards.push(deck[0]);
-    playerCards.push(deck[deck.length-1]);
+    playerCards.push(generateRandomCard());
+    playerCards.push(generateRandomCard());
+    // playerCards.push(deck[0]);
+    // playerCards.push(deck[deck.length-1]);
     // playerCards.push(deck[4]);
     // playerCards.push(deck[5]);
     displayCards(dealerCards,playerCards);

@@ -98,7 +98,7 @@ img:not([src]) {
 
 .dealerResults {
   color: red;
-  font-size: 30pt;
+  font-size: 20pt;
   font-weight: bold;
   display: inline-block;
   width: 100%;
@@ -109,7 +109,7 @@ img:not([src]) {
 
 .playerSplitResults {
   color: white;
-  font-size: 30pt;
+  font-size: 20pt;
   font-weight: bold;
   display: inline-block;
   width: 100%;

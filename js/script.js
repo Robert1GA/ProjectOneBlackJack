@@ -92,9 +92,6 @@
     // playerCards.push(deck[deck.length-1]);
     playerCards.push(deck[28]);
     playerCards.push(deck[29]);
-    console.log("dealer:",dealerCards);
-    console.log("player:",playerCards);
-    console.log("new deck length:", deck.length);
     displayCards(dealerCards,playerCards);
   }
 
@@ -128,11 +125,12 @@
 
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
+    $("#playerScore").html(playerScore);
     evaluateOptions(playerScore,cards);
   }
 
   function evaluateOptions(score,cards) {
-    $("#playerScore").html(score);
+    // $("#playerScore").html(score);
     if (score === 21 && totalCards === 1) {
       console.log("BLACKJACK");
       $("#results").html("BLACKJACK!");
@@ -141,26 +139,17 @@
       console.log("auto-stand");
       stand();
     } else if (score > 21) {
-      console.log("player is bust");
       stand();
     } else if (playerScore < 21) {
-      // gameplay continues
-      if (splitAvailable(cards)) {
-        $("#split").show();  // enable to Split button if player has two same value cards
+      if ((cards[0].value === cards[1].value) && totalCards == 1) {
+        $("#split").show();
       }
-      console.log("continue");
     } else {
       console.log("something is broken");
     }
   }
 
   // Game action ===============================================
-
-  // if player has two cards of equal value, can perform Split function
-  function splitAvailable(card) {
-    return (card[0].value === card[1].value);  //returns true/false
-  }
-
   function playerHit() {
     disableFirstCardOptions()
     playerCards.push(generateRandomCard());

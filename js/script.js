@@ -86,12 +86,12 @@
   function startingCards() {
     dealerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
-    // playerCards.push(generateRandomCard());
+    playerCards.push(generateRandomCard());
+    playerCards.push(generateRandomCard());
     // playerCards.push(deck[0]);
     // playerCards.push(deck[deck.length-1]);
-    playerCards.push(deck[4]);
-    playerCards.push(deck[5]);
+    // playerCards.push(deck[4]);
+    // playerCards.push(deck[5]);
     displayCards(dealerCards,playerCards);
   }
 
@@ -294,7 +294,7 @@
   function blackjack() {
     disableHitStand();
     showHoleCard();
-    detectWin();
+    detectWin(playerCards);
   }
 
 
@@ -411,6 +411,8 @@
     dealerCards = [];
     playerCards = [];
     playerCardsSplit = [];
+    bet = 0;
+    betSplit = 0;
     splitOn = false;
     $("#hit").removeAttr("disabled");
     $("#stand").removeAttr("disabled");

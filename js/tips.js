@@ -296,7 +296,6 @@ function hintSplit() {
   $("#modal").html("You should split.");
 }
 
-
 var modal = document.getElementById('hintModal');
 var span = document.getElementsByClassName("close")[0];
 

@@ -20,7 +20,6 @@
   $("#hint").hide();
   console.log("deck length:", deck.length);
   displayAmtLeft();
-  $("#modal").html("Place your bet below. Then press 'Deal'.")
   $("#hintModal").css("display", "block");
 
 

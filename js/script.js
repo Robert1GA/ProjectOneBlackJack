@@ -124,7 +124,6 @@
     return maxScore;
   }
 
-
   function showPlayerScore(cards) {
     playerScore = calculateScore(cards);
     if (!splitOn) {
@@ -170,7 +169,6 @@
     }
   }
 
-
   function doubleDown() {
     bet *= 2;
     playerHit();  // player should only get one card on a double down.
@@ -181,10 +179,10 @@
     $("#split").attr("disabled","disabled");
     $("#double").attr("disabled","disabled"); // **temporary
     betSplit = bet;
+    amountLeft -= betSplit;
+    displayAmtLeft();
     playerCardsSplit.push(playerCards.pop());
     playerCards.push(generateRandomCard());
-    console.log("play1", playerCards);
-    console.log("play2", playerCardsSplit);
     $(".playerCard").eq(1).attr("src", playerCards[1].img);
     $(".playerCardSplit").eq(0).attr("src", playerCardsSplit[0].img);
     showPlayerScore(playerCards);
@@ -218,7 +216,6 @@
     $("#split").attr("disabled","disabled");
   }
 
-
   function disableHitStand() {
     $("#hit").attr("disabled","disabled");
     $("#stand").attr("disabled","disabled");
@@ -240,34 +237,55 @@
       counter++;
     }
     $("#dealerScore").html(dealerScore);
-    detectWin(playerCards);
     if (splitOn) {
       detectWin(playerCardsSplit);
     }
+    detectWin(playerCards);
   }
 
-
   function detectWin(cards) {
+    console.log("detect win; are these true/false?");
+    console.log(cards === playerCardsSplit);
+    console.log(cards === playerCards);
     playerScore = calculateScore(cards);
     dealerScore = calculateScore(dealerCards);
     if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
-      playerBust(cards);
+      if (cards === playerCardsSplit) {
+        playerSplitBust();
+      } else {
+        playerBust(cards);
+      }
     } else if (dealerScore > 21) {
-      console.log(cards);
-      dealerBust(cards);
+      if (cards === playerCardsSplit) {
+        dealerSplitBust();
+      } else {
+        dealerBust();
+      }
     } else if (playerScore == 21 && totalCards == 1) {
       if (dealerScore == 21) {
         setTimeout(playerPush, 100);
         clearTimeout();
       } else {
-        blackjackWin(cards);
+        blackjackWin();
       }
     } else if (playerScore > dealerScore) {
-      playerWin();
+      if (cards === playerCardsSplit) {
+        playerSplitWin();
+      } else {
+        playerWin();
+      }
     } else if (playerScore < dealerScore) {
-      playerLose();
+      if (cards === playerCardsSplit) {
+        playerSplitLose();
+      } else {
+        playerLose();
+      }
     } else if (playerScore === dealerScore) {
-      playerPush();
+      if (cards === playerCardsSplit) {
+        playerSplitPush();
+      } else {
+        playerPush();
+      }
     } else {
       // wtf moment
       console.log("broken detect win function!");
@@ -283,7 +301,6 @@
 
 // Game results and payouts ====================
   function playerBust() {
-    console.log(cards);
     disableHitStand();
     $("#playerResults").html("Player BUST!");
     if (cards == playerCardsSplit) {
@@ -338,7 +355,6 @@
     console.log(cards);
     disableHitStand();
     $("#playerSplitResults").html("This hand BUST!")
-    nextGame();
   }
 
   function dealerSplitBust() {
@@ -346,25 +362,21 @@
     $("#dealerResults").html("Dealer Bust.");
     $("#playerSplitResults").html("Player win $ " + win + "!")
     winBet(win);
-    nextGame();
   }
 
   function playerSplitWin() {
     var win = betSplit*2;
     $("#playerSplitResults").html("Player win $ " + win +"!");
     winBet(win);
-    nextGame();
   }
 
   function playerSplitLose() {
     $("#playerSplitResults").html("This hand lose.")
-    nextGame();
   }
 
   function playerSplitPush() {
     $("#playerSplitResults").html("Push.");
     winBet(bet);
-    nextGame();
   }
 
   function blackjackSplitWin() {

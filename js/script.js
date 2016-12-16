@@ -86,10 +86,10 @@
   function startingCards() {
     dealerCards.push(generateRandomCard());
     dealerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
-    // playerCards.push(deck[0]);
-    // playerCards.push(deck[deck.length-1]);
+    // playerCards.push(generateRandomCard());
+    // playerCards.push(generateRandomCard());
+    playerCards.push(deck[0]);
+    playerCards.push(deck[deck.length-1]);
     // playerCards.push(deck[4]);
     // playerCards.push(deck[5]);
     displayCards(dealerCards,playerCards);
@@ -347,13 +347,13 @@
     var win = (bet*3/2)+bet
     if (cards === playerCardsSplit) {
       $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
-      setTimeout(detectWin(playerCards), 100);  //need a quick timout to delay DOM
+      setTimeout(detectWin(playerCards), 200);  //need a quick timout to delay DOM
       clearTimeout();
       amountLeft += win;
       displayAmtLeft();
     } else {
       $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
-      setTimeout(nextGame, 100);  //need a quick timout to delay DOM
+      setTimeout(nextGame, 200);  //need a quick timout to delay DOM
       clearTimeout();
       amountLeft += win;
       displayAmtLeft();

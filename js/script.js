@@ -409,7 +409,7 @@
 
   function shuffleCards() {
     console.log("SHUFFLE");
-    if (deck.length < (ALLCARDS.length - 15)) {  // CHANGE THIS BACK: ALLCARDS.length / 2
+    if (deck.length < (ALLCARDS.length / 2)) {  
       deck = [];
       for(var s=0; s<ALLCARDS.length; s++) {
         deck.push(ALLCARDS[s]);

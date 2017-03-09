@@ -182,7 +182,9 @@ img:not([src]) {
   position: absolute;
   width: 100%;
   margin: 0 auto;
+  z-index: 100;
 }
+
 
 /* The Modal (background) */
 .modal {

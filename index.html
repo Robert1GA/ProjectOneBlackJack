@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <title>Blackjack Play &amp Teach</title>
 
     <!-- Bootstrap -->
@@ -13,12 +12,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="container-fluid">
@@ -27,11 +20,11 @@
         </div>
       </div>
 
-      <div class="top">
+      <div>
         <div class="dealerScore">
           <h2 id="dealerScore">&nbsp;</h2>
         </div>
-        <div class="contain">
+        <div>
           <div id="dealerHand">
             <img id="deal0" class="dealerCard">
             <img id="deal1" class="dealerCard">
@@ -44,18 +37,19 @@
         </div>
       </div>
 
-      <div class="dealerResults">
-        <p id="dealerResults">&nbsp;</p>
+      <div class="dealerWinLossMsg">
+        <p id="dealerWinLossMsg">&nbsp;</p>
       </div>
-      <div class="playerSplitResults">
-        <p id="playerSplitResults"> &nbsp;</p>
+      <div class="playerSplitWinLossMsg">
+        <p id="playerSplitWinLossMsg"> &nbsp;</p>
       </div>
-      <div class="playerResults">
-          <p id="playerResults">&nbsp;</p>
+      <div class="playerWinLossMsg">
+          <p id="playerWinLossMsg">&nbsp;</p>
       </div>
-      <div class="bottom">
+
+      <div>
         <div id="playerSplit">
-          <div id="playerSplitHand">
+          <div id="splitHandGroup">
             <img id="cardSplit0" class="playerCardSplit">
             <img id="cardSplit1" class="playerCardSplit">
             <img id="cardSplit2" class="playerCardSplit">
@@ -69,7 +63,7 @@
           </div>
         </div>
         <div id="player">
-          <div id="playerHand">
+          <div id="playerHandGroup">
             <img id="card0" class="playerCard">
             <img id="card1" class="playerCard">
             <img id="card2" class="playerCard">
@@ -86,12 +80,12 @@
 
         <div id="playerChoices">
           <div id="buttons">
-            <button class="btn-lg btn-primary"id="dealCards">Deal</button>
-            <button class="btn-lg btn-info"id="split">Split</button>
-            <button class="btn-lg btn-info"id="double">Double</button>
-            <button class="btn-lg btn-success" id="hit">Hit</button>
-            <button class="btn-lg btn-danger"id="stand">Stand</button>
-            <button class="btn btn-info"id="hint">Hint?</button>
+            <button class="btn" id="dealCards">Deal</button>
+            <button class="btn" id="split">Split</button>
+            <button class="btn" id="double">Double</button>
+            <button class="btn" id="hit">Hit</button>
+            <button class="btn" id="stand">Stand</button>
+            <button class="btn" id="hint">Hint?</button>
             <div id="bank">
               <form>
                 <p>Amount available: $ <span id=available>&nbsp;</span></p>

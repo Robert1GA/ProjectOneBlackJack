@@ -284,11 +284,11 @@
 // Game results and payouts ====================
   function playerBust(cards) {
     if (cards == playerCardsSplit) {
-      $("#playerSplitResults").html("This hand BUST!")
+      $("#playerSplitWinLossMsg").html("This hand BUST!")
       detectWin(playerCards);
     } else {
       disableHitStand();
-      $("#playerResults").html("Player BUST!");
+      $("#playerWinLossMsg").html("Player BUST!");
       nextGame();
     }
   }
@@ -296,13 +296,13 @@
   function dealerBust(cards) {
     var win = bet*2;
     if (cards === playerCardsSplit) {
-      $("#dealerResults").html("Dealer Bust.");
-      $("#playerSplitResults").html("Player win $ " + win + "!")
+      $("#dealerWinLossMsg").html("Dealer Bust.");
+      $("#playerSplitWinLossMsg").html("Player win $ " + win + "!")
       winBet(win);
       detectWin(playerCards);
     } else {
-      $("#dealerResults").html("Dealer Bust.");
-      $("#playerResults").html("Player win $ " + win + "!")
+      $("#dealerWinLossMsg").html("Dealer Bust.");
+      $("#playerWinLossMsg").html("Player win $ " + win + "!")
       winBet(win);
       nextGame();
     }
@@ -311,11 +311,11 @@
   function playerWin(cards) {
     var win = bet*2;
     if (cards === playerCardsSplit) {
-      $("#playerSplitResults").html("Player win $ " + win +"!");
+      $("#playerSplitWinLossMsg").html("Player win $ " + win +"!");
       winBet(win);
       detectWin(playerCards);
     } else {
-      $("#playerResults").html("Player win $ " + win +"!");
+      $("#playerWinLossMsg").html("Player win $ " + win +"!");
       winBet(win);
       nextGame();
     }
@@ -323,21 +323,21 @@
 
   function playerLose(cards) {
     if (cards === playerCardsSplit) {
-      $("#playerSplitResults").html("This hand lose.")
+      $("#playerSplitWinLossMsg").html("This hand lose.")
       detectWin(playerCards);
     } else {
-      $("#playerResults").html("Player lose.");
+      $("#playerWinLossMsg").html("Player lose.");
       nextGame();
     }
   }
 
   function playerPush(cards) {
     if (cards === playerCardsSplit) {
-      $("#playerSplitResults").html("Push.");
+      $("#playerSplitWinLossMsg").html("Push.");
       winBet(bet);
       detectWin(playerCards);
     } else {
-      $("#playerResults").html("Push.");
+      $("#playerWinLossMsg").html("Push.");
       winBet(bet);
       nextGame();
     }
@@ -346,13 +346,13 @@
   function blackjackWin(cards) {
     var win = (bet*3/2)+bet
     if (cards === playerCardsSplit) {
-      $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+      $("#playerWinLossMsg").html("BLACKJACK! Player win $ " + win + "!");
       setTimeout(detectWin(playerCards), 200);  //need a quick timout to delay DOM
       clearTimeout();
       amountLeft += win;
       displayAmtLeft();
     } else {
-      $("#playerResults").html("BLACKJACK! Player win $ " + win + "!");
+      $("#playerWinLossMsg").html("BLACKJACK! Player win $ " + win + "!");
       setTimeout(nextGame, 200);  //need a quick timout to delay DOM
       clearTimeout();
       amountLeft += win;
@@ -428,10 +428,10 @@
   function clearScoreMessages() {
     $("#playerScore").html("&nbsp;");
     $("#dealerScore").html("&nbsp;");
-    $("#playerResults").html("&nbsp;");
-    $("#dealerResults").html("&nbsp;");
+    $("#playerWinLossMsg").html("&nbsp;");
+    $("#dealerWinLossMsg").html("&nbsp;");
     $("#playerSplitScore").html("&nbsp;");
-    $("#playerSplitResults").html("&nbsp;");
+    $("#playerSplitWinLossMsg").html("&nbsp;");
   }
 // ^^^^^ reset settings fucntions for next game ^^^^^
 

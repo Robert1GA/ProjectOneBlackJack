@@ -13,11 +13,11 @@
   var splitOn = false;
 
   // Starting game - hide buttons except deal
-  $("#hit").hide();
-  $("#stand").hide();
-  $("#double").hide();
-  $("#split").hide();
-  $("#hint").hide();
+  // $("#hit").hide();
+  // $("#stand").hide();
+  // $("#double").hide();
+  // $("#split").hide();
+  // $("#hint").hide();
   console.log("deck length:", deck.length);
   displayAmtLeft();
   $("#hintModal").css("display", "block");
@@ -409,7 +409,7 @@
 
   function shuffleCards() {
     console.log("SHUFFLE");
-    if (deck.length < (ALLCARDS.length / 2)) {  
+    if (deck.length < (ALLCARDS.length / 2)) {
       deck = [];
       for(var s=0; s<ALLCARDS.length; s++) {
         deck.push(ALLCARDS[s]);

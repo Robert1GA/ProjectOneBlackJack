@@ -4,166 +4,136 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  color: red;
 }
 
 /* Individual Cards, Dealer, Player and Split */
+
+#deal0, #card0, #cardSplit0 {
+  display: inline-block;
+  position: absolute;
+  left: 5%;
+  z-index: 1;
+}
+#deal1, #card1, #cardSplit1 {
+  position: absolute;
+  left: 15%;
+  z-index: 2;
+}
+#deal2, #card2, #cardSplit2 {
+  position: absolute;
+  left: 25%;
+  z-index: 3;
+}
+#deal3, #card3, #cardSplit3 {
+  position: absolute;
+  left: 35%;
+  z-index: 4;
+}
+#deal4, #card4, #cardSplit4 {
+  position: absolute;
+  left: 45%;
+  z-index: 5;
+}
+#deal5, #card5, #cardSplit5 {
+  position: absolute;
+  left: 55%;
+  z-index: 6;
+}
+#deal6, #card6, #cardSplit6 {
+  position: absolute;
+  left: 65%;
+  z-index: 7;
+}
+
+#deal0, #deal1,
+#deal2, #deal3,
+#deal4, #deal5, #deal6 {
+  border: 2px dotted red;
+}
+#card0, #card1,
+#card2, #card3,
+#card4, #card5, #card6 {
+  border: 2px dotted green;
+}
+#cardSplit0, #cardSplit1,
+#cardSplit2, #cardSplit3,
+#cardSplit4, #cardSplit5, #cardSplit6 {
+  border: 2px dotted purple;
+}
+
+/* Characteristics of all cards */
 
 .playerCard, .playerCardSplit, .dealerCard {
   height: 130px;
   width: 96px;
 }
   /* to prevent border on empty image */
-img:not([src]) {
+/*img:not([src]) {
   opacity:0;
-}
-#deal0, #card0, #cardSplit0 {
-  display: inline-block;
-  position: absolute;
-  left: 20%;
-  z-index: 1;
-}
-#deal1, #card1, #cardSplit1 {
-  position: absolute;
-  left: 35%;
-  z-index: 2;
-}
-#deal2, #card2, #cardSplit2 {
-  position: absolute;
-  left: 50%;
-  z-index: 3;
-}
-#deal3, #card3, #cardSplit3 {
-  position: absolute;
-  left: 65%;
-  z-index: 4;
-}
-#deal4, #card4, #cardSplit4 {
-  position: absolute;
-  left: 80%;
-  z-index: 5;
-}
-#deal5, #card5, #cardSplit5 {
-  position: absolute;
-  left: 95%;
-  z-index: 6;
-}
-#deal6, #card6, #cardSplit6 {
-  position: absolute;
-  left: 110%;
-  z-index: 7;
-}
+}*/
 
 /* Hands as a collective */
-#dealerHand {
-  margin: 0 auto;
-  width: 100%;
-  height: 140px;
-  position: relative;
-  padding: 0;
-  border: 2px solid blue;
-}
-.dealerScore {
-  display: inline-block;
-  position: absolute;
-  width: 25%;
-  margin: -10px 0 10px 805px;
-  font-size: 20pt;
-  color: red;
-  border: 2px dotted red;
-}
+
+
+/* Display Scores and Messages */
 
 .dealerWinLossMsg {
-  color: red;
-  font-size: 20pt;
-  font-weight: bold;
-  display: inline-block;
-  width: 100%;
+  width: 75%;
   text-align: center;
   height: 75px;
-  padding: 0;
 }
-
-.playerSplitWinLossMsg {
-  color: white;
-  font-size: 20pt;
-  font-weight: bold;
-  display: inline-block;
-  width: 100%;
-  text-align: left;
-  height: 0px;
-  padding: 0;
-  margin: 110px 0 0 13%;
-  position: absolute;
-  margin-left: 13%;
-}
-
 .playerWinLossMsg {
-  color: white !important;
-  font-size: 30pt;
-  font-weight: bold;
   display: inline-block;
-  width: 100%;
+  width: 75%;
   text-align: center;
   height: 0px;
   padding: 0;
   margin-top: 110px;
-  position: absolute;
+  /*position: absolute;*/
   border: 2px solid white;
 }
+.playerSplitWinLossMsg {
+  display: inline-block;
+  width: 75%;
+  text-align: left;
+  height: 0px;
+  padding: 0;
+  margin: 110px 0 0 13%;
+  /*position: absolute;*/
+  margin-left: 13%;
+}
 
-#player {
+/*#player {
   width: 200px;
   height: 180px;
   position: relative;
   margin: 15% auto;
   display: inline-block;
   padding: 0;
-}
+  border: 2px solid purple;
+}*/
 
 #playerSplit {
   width: 200px;
   height: 180px;
-  position: relative;
+  /*position: relative;*/
   margin: 6% 10%;
   display: inline-block;
   padding: 0;
 }
 
-#playerHandGroup {
-  margin: 0 auto;
-  width: 100%;
-  height: 140px;
-  position: relative;
-  border: 2px solid red;
-}
-#splitHandGroup {
-  margin: 0 auto;
-  width: 100%;
-  height: 140px;
-  position: relative;
-  border: 2px solid yellow;
-}
-
-.playerScore, .playerSplitScore {
-  display: inline-block;
-  font-size: 20pt;
-  color: white;
-  width: 300px;
-}
 
 #playerChoices {
   display: inline-block;
   width: 55%;
-  position: absolute;
+  /*position: absolute;*/
   top: 63%;
 }
 
-#buttons {
-  position: absolute;
-  width: 100%;
-  margin: 0 auto;
-  border: 2px dotted blue;
-}
+
+
+
 
 
 

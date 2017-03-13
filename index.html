@@ -16,7 +16,7 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-offset-6">
+        <div class="col-md-6">
           <img id="deal0" class="dealerCard">
           <img id="deal1" class="dealerCard">
           <img id="deal2" class="dealerCard">
@@ -24,25 +24,17 @@
           <img id="deal4" class="dealerCard">
           <img id="deal5" class="dealerCard">
           <img id="deal6" class="dealerCard">
-
-          <div class="dealerScore">
-            <h2 id="dealerScore">&nbsp;</h2>
-          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-9">
+          <h2 id="dealerScore">&nbsp;</h2>
+          <p id="dealerWinLossMsg">&nbsp;</p>
         </div>
       </div>
 
-
-
-        <p id="dealerWinLossMsg">&nbsp;</p>
-
-        <p id="playerSplitWinLossMsg"> &nbsp;</p>
-
-          <p id="playerWinLossMsg">&nbsp;</p>
-
-
-
-      <div id="playerSplit">
-
+      <div class="row">
+        <div class="col-md-6">
           <img id="cardSplit0" class="playerCardSplit">
           <img id="cardSplit1" class="playerCardSplit">
           <img id="cardSplit2" class="playerCardSplit">
@@ -50,11 +42,20 @@
           <img id="cardSplit4" class="playerCardSplit">
           <img id="cardSplit5" class="playerCardSplit">
           <img id="cardSplit6" class="playerCardSplit">
-        <!-- </div> -->
-        <div class="playerSplitScore">
-          <p id="playerSplitScore">&nbsp;</p>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-9">
+            <div id="playerSplit">
+              <p id="playerSplitScore">&nbsp;</p>
+            </div>
+            <p id="playerSplitWinLossMsg"> &nbsp;</p>
+          </div>
         </div>
       </div>
+
+
+
+
       <div id="player">
         <!-- <div id="playerHandGroup"> -->
           <img id="card0" class="playerCard">
@@ -65,29 +66,29 @@
           <img id="card5" class="playerCard">
           <img id="card6" class="playerCard">
         <!-- </div> -->
-        <div class="playerScore">
+        <!-- <div class="playerScore"> -->
           <p id="playerScore">&nbsp;</p>
-        </div>
+        <!-- </div> -->
+        <p id="playerWinLossMsg">&nbsp;</p>
       </div>
 
 
       <div id="playerChoices">
+        <button class="btn" id="dealCards">Deal</button>
+        <button class="btn" id="split">Split</button>
+        <button class="btn" id="double">Double</button>
+        <button class="btn" id="hit">Hit</button>
+        <button class="btn" id="stand">Stand</button>
+        <button class="btn" id="hint">Hint?</button>
+      </div>
 
-          <button class="btn" id="dealCards">Deal</button>
-          <button class="btn" id="split">Split</button>
-          <button class="btn" id="double">Double</button>
-          <button class="btn" id="hit">Hit</button>
-          <button class="btn" id="stand">Stand</button>
-          <button class="btn" id="hint">Hint?</button>
-          <div id="bank">
-            <form>
-              <p>Amount available: $ <span id=available>&nbsp;</span></p>
-              <label>How much to bet: $ </label>
-                  <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
+      <div id="bank">
+        <form>
+          <p>Amount available: $ <span id=available>&nbsp;</span></p>
+          <label>How much to bet: $ </label>
+              <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
 
-            </form>
-          </div>
-
+        </form>
       </div>
 
 

@@ -7,8 +7,8 @@ body {
   color: red;
 }
 
-/* Individual Cards, Dealer, Player and Split */
 
+/* Individual Cards, Dealer, Player and Split */
 #deal0, #card0, #cardSplit0 {
   display: inline-block;
   position: absolute;
@@ -45,7 +45,6 @@ body {
   left: 65%;
   z-index: 7;
 }
-
 #deal0, #deal1,
 #deal2, #deal3,
 #deal4, #deal5, #deal6 {
@@ -54,7 +53,7 @@ body {
 #card0, #card1,
 #card2, #card3,
 #card4, #card5, #card6 {
-  border: 2px dotted green;
+  border: 2px dotted blue;
 }
 #cardSplit0, #cardSplit1,
 #cardSplit2, #cardSplit3,
@@ -62,8 +61,8 @@ body {
   border: 2px dotted purple;
 }
 
-/* Characteristics of all cards */
 
+/* Characteristics of all cards */
 .playerCard, .playerCardSplit, .dealerCard {
   height: 130px;
   width: 96px;
@@ -73,47 +72,23 @@ body {
   opacity:0;
 }*/
 
-/* Hands as a collective */
 
-
-/* Display Scores and Messages */
-
+/* DEALER */
+#dealerScore {
+  border: 2px groove red;
+}
+#dealerWinLossMsg {
+  border: 2px groove red;
+}
 .dealerWinLossMsg {
   width: 75%;
   text-align: center;
   height: 75px;
-}
-.playerWinLossMsg {
-  display: inline-block;
-  width: 75%;
-  text-align: center;
-  height: 0px;
-  padding: 0;
-  margin-top: 110px;
-  /*position: absolute;*/
-  border: 2px solid white;
-}
-.playerSplitWinLossMsg {
-  display: inline-block;
-  width: 75%;
-  text-align: left;
-  height: 0px;
-  padding: 0;
-  margin: 110px 0 0 13%;
-  /*position: absolute;*/
-  margin-left: 13%;
+  border: 2px groove red;
 }
 
-/*#player {
-  width: 200px;
-  height: 180px;
-  position: relative;
-  margin: 15% auto;
-  display: inline-block;
-  padding: 0;
-  border: 2px solid purple;
-}*/
 
+/* PLAYER SPLIT */
 #playerSplit {
   width: 200px;
   height: 180px;
@@ -121,16 +96,40 @@ body {
   margin: 6% 10%;
   display: inline-block;
   padding: 0;
+  border: 2px solid purple;
+}
+.playerSplitWinLossMsg {
+  display: inline-block;
+  width: 75%;
+  text-align: left;
+  height: 0px;
+  padding: 0;
+  margin-left: 13%;
+  border: 2px solid purple;
+}
+#playerSplitScore {
+  border: 2px solid purple;
 }
 
 
+/* PLAYER */
+.playerWinLossMsg {
+  display: inline-block;
+  width: 75%;
+  text-align: center;
+  height: 0px;
+  padding: 0;
+  border: 2px solid blue;
+}
+#playerScore {
+  border: 2px solid blue;
+}
 #playerChoices {
   display: inline-block;
   width: 55%;
-  /*position: absolute;*/
   top: 63%;
+  border: 2px solid green;
 }
-
 
 
 

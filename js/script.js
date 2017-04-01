@@ -296,7 +296,7 @@
   function dealerBust(cards) {
     var win = bet*2;
     if (cards === playerCardsSplit) {
-      $("#dealerWinLossMsg").html("Dealer Bust.");
+      $("#dealerWinLossMsg").html("Dealer Bust!");
       $("#playerSplitWinLossMsg").html("Player win $ " + win + "!")
       winBet(win);
       detectWin(playerCards);

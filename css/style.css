@@ -67,44 +67,39 @@ body {
   height: 130px;
   width: 96px;
 }
-  /* to prevent border on empty image */
+  /* Prevents border showing on empty image tags */
 /*img:not([src]) {
   opacity:0;
 }*/
 
 
 /* DEALER */
+.dealer-section {
+  padding-bottom: 100px;
+  height: 300px;
+}
+.all-cards-row {
+  height: 150px;
+}
 #dealerScore {
   border: 2px groove red;
+  /*width: 10%;*/
 }
 #dealerWinLossMsg {
   border: 2px groove red;
-}
-.dealerWinLossMsg {
-  width: 75%;
   text-align: center;
-  height: 75px;
-  border: 2px groove red;
+  width: 75%;
 }
 
 
 /* PLAYER SPLIT */
-#playerSplit {
-  width: 200px;
-  height: 180px;
-  /*position: relative;*/
-  margin: 6% 10%;
-  display: inline-block;
-  padding: 0;
-  border: 2px solid purple;
+.split-section {
+  padding-bottom: 50px;
+  height: 300px;
 }
-.playerSplitWinLossMsg {
-  display: inline-block;
+#playerSplitWinLossMsg {
   width: 75%;
-  text-align: left;
-  height: 0px;
-  padding: 0;
-  margin-left: 13%;
+  text-align: center;
   border: 2px solid purple;
 }
 #playerSplitScore {
@@ -113,22 +108,33 @@ body {
 
 
 /* PLAYER */
-.playerWinLossMsg {
-  display: inline-block;
+.player-section {
+  padding-bottom: 50px;
+  height: 300px;
+}
+#playerWinLossMsg {
   width: 75%;
   text-align: center;
-  height: 0px;
   padding: 0;
   border: 2px solid blue;
 }
 #playerScore {
   border: 2px solid blue;
 }
+
+
+.all-buttons {
+  padding: 25px;
+}
 #playerChoices {
   display: inline-block;
   width: 55%;
   top: 63%;
   border: 2px solid green;
+}
+
+.bank {
+  padding: 50px;
 }
 
 
@@ -173,17 +179,6 @@ body {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-#bank {
-  margin-top: -200px;
-  display: flex;
-  justify-content: flex-end;
-  justify-content: space-around;
-  font-size: 18pt;
-  font-weight: bold;
-  color: white;
-  padding-left: 0;
 }
 
 legend {
@@ -237,4 +232,10 @@ a:hover {
 	visibility:visible;
 	top: -550px; left:250px;
 	z-index: 99;
+}
+
+.clearfix {
+  content: "";
+  display: table;
+  clear: both;
 }

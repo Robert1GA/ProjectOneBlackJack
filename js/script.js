@@ -2,7 +2,7 @@
 
   console.log("all systems go!");
   // variable declarations
-  var deck = []; // use a temporary deck that can be re-shuffled
+  var deck = []; // use a temporary deck that can be reloaded or "shuffled"
   var dealerCards = [];
   var playerCards = [];
   var playerCardsSplit = [];
@@ -30,7 +30,7 @@
     console.log("DEAL click");
     totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
     placeBet();
-    shuffleCards();
+    reloadCards();
     clearCards();
     clearScoreMessages();
     startingCards();
@@ -407,7 +407,7 @@
     $("#bet").prop("disabled",false);
   }
 
-  function shuffleCards() {
+  function reloadCards() {
     console.log("SHUFFLE");
     if (deck.length < (ALLCARDS.length / 2)) {
       deck = [];

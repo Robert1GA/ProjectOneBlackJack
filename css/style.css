@@ -5,6 +5,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
   color: red;
+  padding-top: 15px;
+}
+
+h3 {
+  margin: 0px;
 }
 
 
@@ -12,37 +17,44 @@ body {
 #deal0, #card0, #cardSplit0 {
   display: inline-block;
   position: absolute;
-  left: 5%;
+  position: relative;
+  /*left: 5%;*/
   z-index: 1;
 }
 #deal1, #card1, #cardSplit1 {
   position: absolute;
-  left: 15%;
+  position: relative;
+  /*left: 15%;*/
   z-index: 2;
 }
 #deal2, #card2, #cardSplit2 {
   position: absolute;
-  left: 25%;
+  position: relative;
+  /*left: 25%;*/
   z-index: 3;
 }
 #deal3, #card3, #cardSplit3 {
   position: absolute;
-  left: 35%;
+  position: relative;
+  /*left: 35%;*/
   z-index: 4;
 }
 #deal4, #card4, #cardSplit4 {
   position: absolute;
-  left: 45%;
+  position: relative;
+  /*left: 45%;*/
   z-index: 5;
 }
 #deal5, #card5, #cardSplit5 {
   position: absolute;
-  left: 55%;
+  position: relative;
+  /*left: 55%;*/
   z-index: 6;
 }
 #deal6, #card6, #cardSplit6 {
   position: absolute;
-  left: 65%;
+  position: relative;
+  /*left: 65%;*/
   z-index: 7;
 }
 #deal0, #deal1,
@@ -73,58 +85,62 @@ body {
 }*/
 
 
-/* DEALER */
 .dealer-section {
-  padding-bottom: 100px;
-  height: 300px;
+  padding-bottom: 15px;
+  /*height: 250px;*/
 }
+.split-section, .player-section {
+  padding-bottom: 5px;
+  /*height: 250px;*/
+}
+/*.player-section {
+  padding-bottom: 50px;
+  height: 300px;
+}*/
 .all-cards-row {
-  height: 150px;
+  /*height: 150px;*/
+  text-align: center;
 }
 #dealerScore {
   border: 2px groove red;
-  /*width: 10%;*/
+  text-align: center;
+  padding: 0;
+  display: inline-block;
 }
 #dealerWinLossMsg {
   border: 2px groove red;
   text-align: center;
-  width: 75%;
+  padding: 0;
+  display: inline-block;
 }
 
 
-/* PLAYER SPLIT */
-.split-section {
-  padding-bottom: 50px;
-  height: 300px;
-}
 #playerSplitWinLossMsg {
-  width: 75%;
   text-align: center;
+  display: inline-block;
   border: 2px solid purple;
 }
 #playerSplitScore {
+  display: inline-block;
   border: 2px solid purple;
 }
 
 
-/* PLAYER */
-.player-section {
-  padding-bottom: 50px;
-  height: 300px;
-}
+
 #playerWinLossMsg {
-  width: 75%;
   text-align: center;
   padding: 0;
+  display: inline-block;
   border: 2px solid blue;
 }
 #playerScore {
+  display: inline-block;
   border: 2px solid blue;
 }
 
-
 .all-buttons {
   padding: 25px;
+  text-align: center;
 }
 #playerChoices {
   display: inline-block;
@@ -138,7 +154,9 @@ body {
 }
 
 
-
+.gameplay-info {
+  text-align: center;
+}
 
 
 
@@ -232,10 +250,4 @@ a:hover {
 	visibility:visible;
 	top: -550px; left:250px;
 	z-index: 99;
-}
-
-.clearfix {
-  content: "";
-  display: table;
-  clear: both;
 }

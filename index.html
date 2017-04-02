@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Blackjack Play &amp Teach</title>
+    <title>BlackJack Play &amp Learn</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -14,71 +14,63 @@
 
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
+      <h1 style="text-align:center; color:black">BlackJack Play &amp Learn</h1>
       <div class="dealer-section">
-        <div class="row">
-          <div class="col-lg-md-6 col-md-6 all-cards-row">
-            <img id="deal0" class="dealerCard">
-            <img id="deal1" class="dealerCard">
-            <img id="deal2" class="dealerCard">
-            <img id="deal3" class="dealerCard">
-            <img id="deal4" class="dealerCard">
-            <img id="deal5" class="dealerCard">
-            <img id="deal6" class="dealerCard">
-          </div>
+        <div class="all-cards-row">
+          <img id="deal0" class="dealerCard">
+          <img id="deal1" class="dealerCard">
+          <img id="deal2" class="dealerCard">
+          <img id="deal3" class="dealerCard">
+          <img id="deal4" class="dealerCard">
+          <img id="deal5" class="dealerCard">
+          <img id="deal6" class="dealerCard">
         </div>
-        <div class="row">
-          <div class="col-lg-md-offset-9 col-md-offset-9">
-            <h3 id="dealerScore">&nbsp;</h3>
-            <h3 id="dealerWinLossMsg">&nbsp;</h3>
-          </div>
+        <div class="gameplay-info">
+          <h3 id="dealerScore">&nbsp;</h3>
+        </div>
+        <div class="gameplay-info">
+          <h3 id="dealerWinLossMsg">&nbsp;</h3>
         </div>
       </div> <!--end dealer-section-->
 
       <div class="split-section">
-        <div class="row">
-          <div class="col-lg-offset-9 col-md-offset-9">
-            <h3 id="playerSplitScore">&nbsp;</h3>
-            <h3 id="playerSplitWinLossMsg">&nbsp;</h3>
-          </div>
+        <div class="gameplay-info">
+          <h3 id="playerSplitScore">&nbsp;</h3>
         </div>
-        <div class="row">
-          <div class="col-lg-md-6 col-md-6 all-cards-row">
-            <img id="cardSplit0" class="playerCardSplit">
-            <img id="cardSplit1" class="playerCardSplit">
-            <img id="cardSplit2" class="playerCardSplit">
-            <img id="cardSplit3" class="playerCardSplit">
-            <img id="cardSplit4" class="playerCardSplit">
-            <img id="cardSplit5" class="playerCardSplit">
-            <img id="cardSplit6" class="playerCardSplit">
-          </div>
-
+        <div class="gameplay-info">
+          <h3 id="playerSplitWinLossMsg">&nbsp;</h3>
+        </div>
+        <div class="all-cards-row">
+          <img id="cardSplit0" class="playerCardSplit">
+          <img id="cardSplit1" class="playerCardSplit">
+          <img id="cardSplit2" class="playerCardSplit">
+          <img id="cardSplit3" class="playerCardSplit">
+          <img id="cardSplit4" class="playerCardSplit">
+          <img id="cardSplit5" class="playerCardSplit">
+          <img id="cardSplit6" class="playerCardSplit">
         </div>
       </div> <!--end split-section-->
 
-
       <div class="player-section">
-        <div class="row">
-          <div class="col-lg-offset-9 col-md-offset-9">
-            <h3 id="playerScore">&nbsp;</h3>
-            <h3 id="playerWinLossMsg">&nbsp;</h3>
-          </div>
+        <div class="gameplay-info">
+          <h3 id="playerScore">&nbsp;</h3>
         </div>
-        <div class="row">
-          <div class="col-lg-md-6 col-md-6 all-cards-row">
-            <div id="player">
-                <img id="card0" class="playerCard">
-                <img id="card1" class="playerCard">
-                <img id="card2" class="playerCard">
-                <img id="card3" class="playerCard">
-                <img id="card4" class="playerCard">
-                <img id="card5" class="playerCard">
-                <img id="card6" class="playerCard">
-            </div>
+        <div class="gameplay-info">
+          <h3 id="playerWinLossMsg">Player: &nbsp;</h3>
+        </div>
+        <div class="all-cards-row">
+          <div id="player">
+            <img id="card0" class="playerCard">
+            <img id="card1" class="playerCard">
+            <img id="card2" class="playerCard">
+            <img id="card3" class="playerCard">
+            <img id="card4" class="playerCard">
+            <img id="card5" class="playerCard">
+            <img id="card6" class="playerCard">
           </div>
         </div>
       </div>
-      <div class="clearfix"></div>
 
       <div class="all-buttons">
         <div id="playerChoices">
@@ -98,16 +90,6 @@
           <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
         </form>
       </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

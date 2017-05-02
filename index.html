@@ -15,7 +15,9 @@
   </head>
   <body>
     <div class="container">
-      <h1 style="text-align:center; color:black">BlackJack Play &amp Learn</h1>
+      <div class="game-title">
+        <h1 style="text-align:center; color:black">BlackJack Play &amp Learn</h1>
+      </div>
       <div class="dealer-section">
         <div class="all-cards-row">
           <img id="deal0" class="dealerCard">
@@ -30,7 +32,7 @@
           <h3 id="dealerScore">&nbsp;</h3>
         </div>
         <div class="gameplay-info">
-          <h3 id="dealerWinLossMsg">&nbsp;</h3>
+          <h3 id="dealerWinLossMsg">Dealer</h3>
         </div>
       </div> <!--end dealer-section-->
 
@@ -57,7 +59,7 @@
           <h3 id="playerScore">&nbsp;</h3>
         </div>
         <div class="gameplay-info">
-          <h3 id="playerWinLossMsg">Player: &nbsp;</h3>
+          <h3 id="playerWinLossMsg">Player</h3>
         </div>
         <div class="all-cards-row">
           <div id="player">
@@ -70,7 +72,7 @@
             <img id="card6" class="playerCard">
           </div>
         </div>
-      </div>
+      </div> <!--end player-section-->
 
       <div class="all-buttons">
         <div id="playerChoices">
@@ -81,15 +83,15 @@
           <button class="btn" id="stand">Stand</button>
           <button class="btn" id="hint">Hint?</button>
         </div>
-      </div>
+      </div><!--end all-buttons-->
 
       <div class="bank">
         <form>
-          <p>Amount available: $ <span id=available>&nbsp;</span></p>
+          <h3>Amount available: $ <span id=available>&nbsp;</span></h3>
           <label>How much to bet: $ </label>
           <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
         </form>
-      </div>
+      </div> <!--end bank-->
 
 
 

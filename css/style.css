@@ -6,8 +6,11 @@ body {
   background-size: cover;
   color: red;
   padding-top: 15px;
+  font-family: "Baskerville", serif;
 }
-
+.game-title h1 {
+  margin-bottom: 30px;
+}
 h3 {
   margin: 0px;
 }
@@ -76,8 +79,8 @@ h3 {
 
 /* Characteristics of all cards */
 .playerCard, .playerCardSplit, .dealerCard {
-  height: 130px;
-  width: 96px;
+  height: 100px; /*130px;*/
+  width: 74px; /*96px;*/
 }
   /* Prevents border showing on empty image tags */
 /*img:not([src]) {
@@ -87,18 +90,14 @@ h3 {
 
 .dealer-section {
   padding-bottom: 15px;
-  /*height: 250px;*/
 }
 .split-section, .player-section {
   padding-bottom: 5px;
-  /*height: 250px;*/
 }
-/*.player-section {
-  padding-bottom: 50px;
-  height: 300px;
-}*/
 .all-cards-row {
-  /*height: 150px;*/
+  text-align: center;
+}
+.gameplay-info {
   text-align: center;
 }
 #dealerScore {
@@ -107,36 +106,34 @@ h3 {
   padding: 0;
   display: inline-block;
 }
-#dealerWinLossMsg {
-  border: 2px groove red;
-  text-align: center;
-  padding: 0;
-  display: inline-block;
-}
-
-
-#playerSplitWinLossMsg {
-  text-align: center;
-  display: inline-block;
-  border: 2px solid purple;
-}
 #playerSplitScore {
   display: inline-block;
   border: 2px solid purple;
-}
-
-
-
-#playerWinLossMsg {
-  text-align: center;
-  padding: 0;
-  display: inline-block;
-  border: 2px solid blue;
 }
 #playerScore {
   display: inline-block;
   border: 2px solid blue;
 }
+
+
+#dealerWinLossMsg, #playerSplitWinLossMsg, #playerWinLossMsg {
+  display: inline-block;
+  text-align: center;
+}
+#dealerWinLossMsg, #playerWinLossMsg {
+  padding: 0;
+}
+#dealerWinLossMsg {
+  /*border: 2px groove red;*/
+}
+#playerSplitWinLossMsg {
+  border: 2px solid purple;
+}
+#playerWinLossMsg {
+  /*border: 2px solid blue;*/
+}
+
+
 
 .all-buttons {
   padding: 25px;
@@ -144,19 +141,19 @@ h3 {
 }
 #playerChoices {
   display: inline-block;
-  width: 55%;
-  top: 63%;
+  /*width: 55%;
+  top: 63%;*/
   border: 2px solid green;
 }
 
 .bank {
-  padding: 50px;
+}
+.bank label, input {
+  font: normal 16pt "Baskerville", serif;
 }
 
 
-.gameplay-info {
-  text-align: center;
-}
+
 
 
 

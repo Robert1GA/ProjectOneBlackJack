@@ -296,12 +296,12 @@
   function dealerBust(cards) {
     var win = bet*2;
     if (cards === playerCardsSplit) {
-      $("#dealerWinLossMsg").html("Dealer Bust!");
+      $("#dealerWinLossMsg").html("Dealer BUSTS!");
       $("#playerSplitWinLossMsg").html("Player win $ " + win + "!")
       winBet(win);
       detectWin(playerCards);
     } else {
-      $("#dealerWinLossMsg").html("Dealer Bust.");
+      $("#dealerWinLossMsg").html("Dealer BUSTS!");
       $("#playerWinLossMsg").html("Player win $ " + win + "!")
       winBet(win);
       nextGame();
@@ -428,8 +428,8 @@
   function clearScoreMessages() {
     $("#playerScore").html("&nbsp;");
     $("#dealerScore").html("&nbsp;");
-    $("#playerWinLossMsg").html("&nbsp;");
-    $("#dealerWinLossMsg").html("&nbsp;");
+    $("#playerWinLossMsg").html("Player");
+    $("#dealerWinLossMsg").html("Dealer");
     $("#playerSplitScore").html("&nbsp;");
     $("#playerSplitWinLossMsg").html("&nbsp;");
   }

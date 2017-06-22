@@ -1,24 +1,18 @@
 // $("document").ready(function() {
 
-  console.log("all systems go!");
+  // console.log("all systems go!");
   // variable declarations
-  var deck = []; // use a temporary deck that can be reloaded or "shuffled"
-  var dealerCards = [];
-  var playerCards = [];
-  var playerCardsSplit = [];
-  var totalCards;
-  var amountLeft = 500;
-  var bet;
-  var betSplit = 0;
-  var splitOn = false;
+  var deck = [], // use a temporary deck that can be reloaded or "shuffled"
+    dealerCards = [], playerCards = [], playerCardsSplit = [],
+    totalCards = 0, amountLeft = 500, bet, betSplit = 0, splitOn = false;
 
   // Starting game - hide buttons except deal
-  // $("#hit").hide();
-  // $("#stand").hide();
-  // $("#double").hide();
-  // $("#split").hide();
-  // $("#hint").hide();
-  console.log("deck length:", deck.length);
+  $("#hit").hide();
+  $("#stand").hide();
+  $("#double").hide();
+  $("#split").hide();
+  $("#hint").hide();
+  // console.log("deck length:", deck.length);
   displayAmtLeft();
   $("#hintModal").css("display", "block");
 
@@ -27,14 +21,13 @@
 // =========================================
   $("#dealCards").click(function(e) {
     e.preventDefault();
-    console.log("DEAL click");
     totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
     placeBet();
-    reloadCards();
+    reloadActiveCards();
     clearCards();
     clearScoreMessages();
     startingCards();
-    $("#dealCards").hide();  // hide the deal button just clicked.
+    $("#dealCards").hide();  // hide the deal button after clicked.
     $("#hit").show();   // unhide the buttons necessary for gameplay.
     $("#stand").show();
     $("#double").show();
@@ -44,7 +37,6 @@
 
   $("#hit").click(function(e) {
     e.preventDefault();
-    console.log("HIT click");
     playerHit();
   });
 
@@ -88,6 +80,7 @@
     dealerCards.push(generateRandomCard());
     playerCards.push(generateRandomCard());
     playerCards.push(generateRandomCard());
+    // ---- For Temporary section: Test for splits, blackjacks, etc -------
     // playerCards.push(deck[0]);
     // playerCards.push(deck[deck.length-1]);
     // playerCards.push(deck[4]);
@@ -136,7 +129,6 @@
   function evaluateOptions(score,cards) {
     // $("#playerScore").html(score);
     if (score === 21 && totalCards === 1) {
-      console.log("BLACKJACK");
       $("#results").html("BLACKJACK!");
       blackjack(cards);
     } else if (score === 21) {
@@ -149,14 +141,14 @@
         $("#split").show();
       }
     } else {
-      console.log("something is broken");
+      console.log("something is broken - wt-heck, man!");
     }
   }
 
   // Game action ===============================================
   function playerHit() {
     disableFirstCardOptions()
-    totalCards++
+    ++totalCards;
     if (!splitOn) {
       playerCards.push(generateRandomCard());
       $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
@@ -189,8 +181,6 @@
 
 
   function stand() {
-    console.log(playerCardsSplit.length);
-    console.log(splitOn);
     if (betSplit !== 0 && !splitOn) {
       console.log("standing with split to go");
       totalCards = 1;
@@ -243,9 +233,6 @@
   }
 
   function detectWin(cards) {
-    console.log("detect win; are these true/false?");
-    console.log(cards === playerCardsSplit);
-    console.log(cards === playerCards);
     playerScore = calculateScore(cards);
     dealerScore = calculateScore(dealerCards);
     if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
@@ -266,7 +253,6 @@
     } else if (playerScore === dealerScore) {
         playerPush(cards);
     } else {
-      // wtf moment
       console.log("broken detect win function!");
     }
   }
@@ -382,7 +368,7 @@
     amountLeft += amt;
     displayAmtLeft();
   }
-// Game results and payouts ^^^^^^^^^^^^^^^^^^^^^^^^^
+// ^^^^^^^^^^^ Game results and payouts ^^^^^^^^^^^^
 
 
 // reset settings fucntions for next game  =====
@@ -407,8 +393,8 @@
     $("#bet").prop("disabled",false);
   }
 
-  function reloadCards() {
-    console.log("SHUFFLE");
+  function reloadActiveCards() {
+    console.log("RELOAD");
     if (deck.length < (ALLCARDS.length / 2)) {
       deck = [];
       for(var s=0; s<ALLCARDS.length; s++) {

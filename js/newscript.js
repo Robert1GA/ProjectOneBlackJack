@@ -1,11 +1,13 @@
 console.log("Cheers!");
+$('#blackjack-pays').circleType({radius: 450, dir:-1});
+$('#soft-17').circleType({radius: 450, dir:-1});
 
 /* DECK OF CARDS INITIALIZE AND SHUFFLING */
 var deck = [];
-/* "shuffle-like" function */
+/* "shuffle-like" function when less than 1/4 deck remaining*/
 function reloadActiveCards() {
   console.log("RELOAD");
-  if (deck.length < (ALLCARDS.length * 0.25)) {
+  if (deck.length <= (ALLCARDS.length * 0.25)) {
     deck = [];
     for(var i = 0; i < ALLCARDS.length; i++) {
       deck.push(ALLCARDS[i]);
@@ -30,7 +32,7 @@ var calculateScore = function(cards) {
   console.log("min: " + minScore);
   var maxScore = minScore;
   cards.forEach(function(card) {
-    /* Give Aces value of 11 if it will not BUST */
+    /* Give Aces value of 11 if it will not BUST hand, else keep at value 1*/
     if (card.value === 1 && maxScore + 10 <= 21) {
       maxScore += 10;
     }
@@ -44,6 +46,8 @@ function Hand() {
   this.size = 0;
   this.split = false;
   this.cards = [];
+  // can/should I add a this.value ?
+  // how would it work for dealer ?
 }
 Hand.prototype.newCard = function() {
   this.cards.push(randomCard());
@@ -74,6 +78,7 @@ Hand.prototype.dealerPlay = function() {
 };
 
 function anotherDealerCard(score) {
+  /* Hit anything less than 17 or Soft-17s*/
   if(score[0] < 17 || (score[0] === 17 && score[1] === "SOFT")) {
     return true;
   } else if(score[0] > 17 || (score[0] === 17 && score[1] === "HARD")) {

@@ -46,6 +46,7 @@ function Hand() {
   this.size = 0;  // Not sure if this property is really needed.
   this.split = false;
   this.cards = [];
+  this.value = this.calculateValue;
   // can/should I add a this.value that references calculate()?
   // how would it work for dealer ?
 }
@@ -87,20 +88,35 @@ function anotherDealerCard(score) {
   }
 }
 
+function determineWinner() {
+
+}
+
 reloadActiveCards();
 var playerHand = new Hand();
 playerHand.newCard();
 playerHand.newCard();
 console.table(playerHand.cards);
-console.log(playerHand.calculateValue());
-console.log(playerHand.calculateValue()[1]);
-console.log(playerHand.calculateValue()[0]);
+// console.log(playerHand.calculateValue());
+// console.log(playerHand.calculateValue()[1]);
+// console.log(playerHand.calculateValue()[0]);
+// console.log("new");
+console.log(playerHand.value()[1]);
+console.log(playerHand.value()[0]);
 
 var dealerHand = new Hand();
 dealerHand.newCard();
 dealerHand.newCard();
 dealerHand.dealerPlay();
 console.table(dealerHand.cards);
-console.log(dealerHand.calculateValue());
-console.log(dealerHand.calculateValue()[1]);
-console.log(dealerHand.calculateValue()[0]);
+// console.log(dealerHand.calculateValue());
+// console.log(dealerHand.calculateValue()[1]);
+// console.log(dealerHand.calculateValue()[0]);
+// console.log("new");
+console.log(dealerHand.value()[1]);
+console.log(dealerHand.value()[0]);
+
+$( document ).ready(function() {
+    // console.log( "ready!" );
+
+});

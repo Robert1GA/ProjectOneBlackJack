@@ -1,0 +1,27 @@
+body {
+  background:url(https://placeimg.com/640/480/any);
+}
+
+.out {
+  width: 455px;
+  height: 275px;
+  border: 1px solid red;
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.in {
+  width: 550px;
+  height: 550px;
+  border: 1px solid green;
+  position: absolute;
+  left: 200px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 500px white; /* this is the white background */
+}
+
+.bottom .in {
+  bottom: 0;
+  left: 200px;
+}

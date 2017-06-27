@@ -4,126 +4,45 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>BlackJack Play &amp Learn</title>
+    <title></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
+
 
   </head>
   <body>
-    <div class="container">
-      <div class="game-title">
-        <h1 style="text-align:center; color:black">BlackJack Play &amp Learn</h1>
+    <div id="table-felt">
+      <div id="table-logo">
+        <h1 id="blackjack-pays">BLACKJACK PAYS 3 TO 2</h1>
+        <h1 class="ribbon" id="soft-17">
+          <span class="ribbon-content">DEALER MUST HIT SOFT 17</span>
+        </h1>
       </div>
-      <div class="dealer-section">
-        <div class="all-cards-row">
-          <img id="deal0" class="dealerCard">
-          <img id="deal1" class="dealerCard">
-          <img id="deal2" class="dealerCard">
-          <img id="deal3" class="dealerCard">
-          <img id="deal4" class="dealerCard">
-          <img id="deal5" class="dealerCard">
-          <img id="deal6" class="dealerCard">
+      <div class="betting-circle-area">
+        <div class="betting-circle">
         </div>
-        <div class="gameplay-info">
-          <h3 id="dealerScore">&nbsp;</h3>
-        </div>
-        <div class="gameplay-info">
-          <h3 id="dealerWinLossMsg">Dealer</h3>
-        </div>
-      </div> <!--end dealer-section-->
-
-      <div class="split-section">
-        <div class="gameplay-info">
-          <h3 id="playerSplitScore">&nbsp;</h3>
-        </div>
-        <div class="gameplay-info">
-          <h3 id="playerSplitWinLossMsg">&nbsp;</h3>
-        </div>
-        <div class="all-cards-row">
-          <img id="cardSplit0" class="playerCardSplit">
-          <img id="cardSplit1" class="playerCardSplit">
-          <img id="cardSplit2" class="playerCardSplit">
-          <img id="cardSplit3" class="playerCardSplit">
-          <img id="cardSplit4" class="playerCardSplit">
-          <img id="cardSplit5" class="playerCardSplit">
-          <img id="cardSplit6" class="playerCardSplit">
-        </div>
-      </div> <!--end split-section-->
-
-      <div class="player-section">
-        <div class="gameplay-info">
-          <h3 id="playerScore">&nbsp;</h3>
-        </div>
-        <div class="gameplay-info">
-          <h3 id="playerWinLossMsg">Player</h3>
-        </div>
-        <div class="all-cards-row">
-          <div id="player">
-            <img id="card0" class="playerCard">
-            <img id="card1" class="playerCard">
-            <img id="card2" class="playerCard">
-            <img id="card3" class="playerCard">
-            <img id="card4" class="playerCard">
-            <img id="card5" class="playerCard">
-            <img id="card6" class="playerCard">
+        <div class="betting-circle player-betting-circle">
+          <div>
+            <button id="deal-button">Deal</button>
           </div>
         </div>
-      </div> <!--end player-section-->
-
-      <div class="all-buttons">
-        <div id="playerChoices">
-          <button class="btn" id="dealCards">Deal</button>
-          <button class="btn" id="split">Split</button>
-          <button class="btn" id="double">Double</button>
-          <button class="btn" id="hit">Hit</button>
-          <button class="btn" id="stand">Stand</button>
-          <button class="btn" id="hint">Hint?</button>
+        <div class="betting-circle">
         </div>
-      </div><!--end all-buttons-->
-
-      <div class="bank">
-        <form>
-          <h3>Amount available: $ <span id=available>&nbsp;</span></h3>
-          <label>How much to bet: $ </label>
-          <input id="bet" type="number" name="money" min="20" max="500" step="10" value="20">
-        </form>
-      </div> <!--end bank-->
+      </div>
 
 
 
 
-        <!-- The Modal -->
-        <div id="hintModal" class="modal">
-          <!-- Modal content -->
-          <div class="hintContent">
-            <span class="close">&times;</span>
-            <p id="modal">Rules: The goal of Blackjack is to have a higher
-              point total in your hand than the dealer's hand. You can "HIT"
-              to draw more cards and may stop, or "STAND", at any time. You lose automatically
-              if you go past 21. Place your bet in the lower right hand corner. Then
-              press DEAL to get started. Press the HINT button during gameplay
-              for suggestions. Enjoy!</p>
-          </div>
-        </div>
-
-      <!-- <footer>
-        <nav class="clearfix">
-        <a class="cheat" href="#">Split Card Cheatsheet<img src=""><span><img src="img/single_splits.jpeg"></span></a>
-        <a class="cheat" href="#">Soft Totals Cheatsheet<img src=""><span><img src="img/single_softtotals.jpeg"></span></a>
-        <a class="cheat" href="#">Hard Totals Cheatsheet<img src=""><span><img src="img/single_hardtotals.jpeg"></span></a>
-      </footer> -->
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/deck.js"></script>
-    <script type="text/javascript" src="js/tips.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script src="js/circletype.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/deck.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

@@ -1,425 +1,106 @@
-// $("document").ready(function() {
+console.log("Cheers!");
+$('#blackjack-pays').circleType({radius: 450, dir:-1});
+$('#soft-17').circleType({radius: 450, dir:-1});
 
-  // console.log("all systems go!");
-  // variable declarations
-  var deck = [], // use a temporary deck that can be reloaded or "shuffled"
-    dealerCards = [], playerCards = [], playerCardsSplit = [],
-    totalCards = 0, amountLeft = 500, bet, betSplit = 0, splitOn = false;
+/* DECK OF CARDS INITIALIZE AND SHUFFLING */
+var deck = [];
+/* "shuffle-like" function when less than 1/4 deck remaining*/
+function reloadActiveCards() {
+  console.log("RELOAD");
+  if (deck.length <= (ALLCARDS.length * 0.25)) {
+    deck = [];
+    for(var i = 0; i < ALLCARDS.length; i++) {
+      deck.push(ALLCARDS[i]);
+    }
+  }
+}
+/* pull a random card from deck and removes it from that array */
+var randomCard = function() {
+  var rand = Math.round(Math.random() * (deck.length-1));
+  var randomCard = deck[rand];
+  // console.log("randomCard:",randomCard);
+  deck.splice(rand,1);
+  return randomCard;
+};
 
-  // Starting game - hide buttons except deal
-  $("#hit").hide();
-  $("#stand").hide();
-  $("#double").hide();
-  $("#split").hide();
-  $("#hint").hide();
-  // console.log("deck length:", deck.length);
-  displayAmtLeft();
-  $("#hintModal").css("display", "block");
-
-
-// These are event listeners for all buttons
-// =========================================
-  $("#dealCards").click(function(e) {
-    e.preventDefault();
-    totalCards = 1;  // starting total number of player cards at value of 1 (two cards: zero, one)
-    placeBet();
-    reloadActiveCards();
-    clearCards();
-    clearScoreMessages();
-    startingCards();
-    $("#dealCards").hide();  // hide the deal button after clicked.
-    $("#hit").show();   // unhide the buttons necessary for gameplay.
-    $("#stand").show();
-    $("#double").show();
-    $("#hint").show();
+/* Calculate the value of each hand */
+var calculateScore = function(cards) {
+  var minScore = 0;
+  cards.forEach(function(card) {
+    minScore += card.value;
   });
-
-
-  $("#hit").click(function(e) {
-    e.preventDefault();
-    playerHit();
+  console.log("min: " + minScore);
+  var maxScore = minScore;
+  cards.forEach(function(card) {
+    /* Give Aces value of 11 if it will not BUST hand, else keep at value 1*/
+    if (card.value === 1 && maxScore + 10 <= 21) {
+      maxScore += 10;
+    }
   });
+  console.log("max: " + maxScore);
+  return maxScore;
+};
 
-  $("#stand").click(function(e) {
-    e.preventDefault();
-    stand();
+/* HAND OF CARDS OBJECT PROTOTYPE */
+function Hand() {
+  this.size = 0;  // Not sure if this property is really needed.
+  this.split = false;
+  this.cards = [];
+  // can/should I add a this.value that references calculate()?
+  // how would it work for dealer ?
+}
+Hand.prototype.newCard = function() {
+  this.cards.push(randomCard());
+  this.size++;
+};
+Hand.prototype.calculateValue = function() {
+  var minScore = 0, maxScore, type = "HARD";
+  this.cards.forEach(function(card) {
+    minScore += card.value;
   });
-
-  $("#double").click(function(e) {
-    e.preventDefault();
-    doubleDown();
+  maxScore = minScore;
+  this.cards.forEach(function(card) {
+    if (card.value === 1 && maxScore + 10 <= 21) {
+      maxScore += 10;
+      type = "SOFT";
+    }
   });
-
-  $("#split").click(function(e) {
-    e.preventDefault();
-    split();
-  });
-
-  $("#hint").click(function(e) {
-    e.preventDefault();
-      checkForHints();
-      $("#hintModal").css("display", "block");
-  });
-
-
-// pull a random card and removes it from the deck array
-  function generateRandomCard() {
-    var rand = Math.round(Math.random() * (deck.length-1));
-    var aCard = deck[rand];
-    console.log("aCard:",aCard);
-    deck.splice(rand,1);  // pulled from deck
-    return aCard;
+  return [maxScore, type];
+};
+Hand.prototype.dealerPlay = function() {
+  var dealerScore = this.calculateValue();
+  while(anotherDealerCard(dealerScore)) {
+    console.log("dealer receiving new card");
+    this.newCard();
+    dealerScore = this.calculateValue();
   }
+  return dealerScore[0];  // is this what I want to return or the entire array ?
+};
 
-  // starting deal. I believe this needs to be different from
-  // other functions in that there's no other time one card (dealer's) needs
-  // to be generated, but placed "facedown"
-  // ** will re-examine this assumption at a later time **
-  function startingCards() {
-    dealerCards.push(generateRandomCard());
-    dealerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
-    playerCards.push(generateRandomCard());
-    // ---- For Temporary section: Test for splits, blackjacks, etc -------
-    // playerCards.push(deck[0]);
-    // playerCards.push(deck[deck.length-1]);
-    // playerCards.push(deck[4]);
-    // playerCards.push(deck[5]);
-    displayCards(dealerCards,playerCards);
+/* Determine if Dealer should get another card */
+/* Hit anything less than 17 or on Soft-17s */
+function anotherDealerCard(score) {
+  if(score[0] < 17 || (score[0] === 17 && score[1] === "SOFT")) {
+    return true;
+  } else if(score[0] > 17 || (score[0] === 17 && score[1] === "HARD")) {
+    return false;
   }
+}
 
-  function displayCards(dcards,pcards) {
-    console.log("dealerCards ", dealerCards);
-    $(".dealerCard").eq(0).attr("src", "img/red.jpg");
-    $(".dealerCard").eq(1).attr("src", dcards[1].img);
-    $(".playerCard").eq(0).attr("src", pcards[0].img);
-    $(".playerCard").eq(1).attr("src", pcards[1].img);
-    showPlayerScore(playerCards);  // ** ???
-  }
+reloadActiveCards();
+var playerHand = new Hand();
+playerHand.newCard();
+playerHand.newCard();
+console.table(playerHand.cards);
+console.log(playerHand.calculateValue());
+console.log(playerHand.calculateValue()[1]);
+console.log(playerHand.calculateValue()[0]);
 
-  // calculate the value of a hand, taking into account handling aces
-  function calculateScore(cards) {
-    var minScore = 0;
-    cards.forEach(function(card) {
-      minScore += card.value;
-    });
-
-    var maxScore = minScore;
-    cards.forEach(function(card) {
-      // checks if setting an ace value to 11 busts the hand.
-      // if not, add 10 to value of ace.
-      if (card.value === 1 && maxScore + 10 <= 21) {
-        maxScore += 10;
-      }
-    });
-    console.log("maxscore", maxScore);
-    return maxScore;
-  }
-
-  function showPlayerScore(cards) {
-    playerScore = calculateScore(cards);
-    if (!splitOn) {
-      $("#playerScore").html(playerScore);
-    } else if (splitOn) {
-      $("#playerSplitScore").html(playerScore);
-    }
-    evaluateOptions(playerScore,cards);
-  }
-
-  function evaluateOptions(score,cards) {
-    // $("#playerScore").html(score);
-    if (score === 21 && totalCards === 1) {
-      $("#results").html("BLACKJACK!");
-      blackjack(cards);
-    } else if (score === 21) {
-      console.log("auto-stand");
-      stand();
-    } else if (score > 21) {
-      stand();
-    } else if (score < 21) {
-      if ((cards[0].value === cards[1].value) && totalCards == 1) {
-        $("#split").show();
-      }
-    } else {
-      console.log("something is broken - wt-heck, man!");
-    }
-  }
-
-  // Game action ===============================================
-  function playerHit() {
-    disableFirstCardOptions()
-    ++totalCards;
-    if (!splitOn) {
-      playerCards.push(generateRandomCard());
-      $(".playerCard").eq(totalCards).attr("src", playerCards[totalCards].img);
-      showPlayerScore(playerCards);
-    } else if (splitOn) {
-      playerCardsSplit.push(generateRandomCard());
-      $(".playerCardSplit").eq(totalCards).attr("src", playerCardsSplit[totalCards].img);
-      showPlayerScore(playerCardsSplit);
-    }
-  }
-
-  function doubleDown() {
-    bet *= 2;
-    playerHit();  // player should only get one card on a double down.
-    stand();
-  }
-
-  function split() {
-    $("#split").attr("disabled","disabled");
-    $("#double").attr("disabled","disabled"); // **temporary
-    betSplit = bet;
-    amountLeft -= betSplit;
-    displayAmtLeft();
-    playerCardsSplit.push(playerCards.pop());
-    playerCards.push(generateRandomCard());
-    $(".playerCard").eq(1).attr("src", playerCards[1].img);
-    $(".playerCardSplit").eq(0).attr("src", playerCardsSplit[0].img);
-    showPlayerScore(playerCards);
-  }
-
-
-  function stand() {
-    if (betSplit !== 0 && !splitOn) {
-      console.log("standing with split to go");
-      totalCards = 1;
-      splitOn = true;
-      playerCardsSplit.push(generateRandomCard());
-      console.log(playerCards)
-      $(".playerCardSplit").eq(1).attr("src", playerCardsSplit[1].img);
-      showPlayerScore(playerCardsSplit);
-    } else {
-      console.log("stand - no split");
-      disableHitStand();
-      setTimeout(dealtoDealer, 100);
-      clearTimeout();
-    }
-  }
-
-  //  Game Action ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  // these are options that can only be played on first player decision
-  function disableFirstCardOptions() {
-    $("#double").attr("disabled","disabled");
-    $("#split").attr("disabled","disabled");
-  }
-
-  function disableHitStand() {
-    $("#hit").attr("disabled","disabled");
-    $("#stand").attr("disabled","disabled");
-  }
-
-  function showHoleCard() {
-    $(".dealerCard").eq(0).attr("src", dealerCards[0].img);
-  }
-
-  function dealtoDealer() {
-    var counter = 2;
-    var dealerScore = calculateScore(dealerCards);
-    showHoleCard();
-    while (dealerScore < 17) {
-      console.log("dealer",dealerCards);
-      dealerCards.push(generateRandomCard());
-      $(".dealerCard").eq(counter).attr("src", dealerCards[counter].img);
-      dealerScore = calculateScore(dealerCards);
-      counter++;
-    }
-    $("#dealerScore").html(dealerScore);
-    if (splitOn) {
-      detectWin(playerCardsSplit);
-    }
-    detectWin(playerCards);
-  }
-
-  function detectWin(cards) {
-    playerScore = calculateScore(cards);
-    dealerScore = calculateScore(dealerCards);
-    if (playerScore > 21) {  // no way to win if player busts. This is needed here to evaluate double-down options
-        playerBust(cards);
-    } else if (dealerScore > 21) {
-        dealerBust(cards);
-    } else if (playerScore == 21 && totalCards == 1) {
-      if (dealerScore == 21) {
-        setTimeout(playerPush, 100);
-        clearTimeout();
-      } else {
-        blackjackWin(cards);
-      }
-    } else if (playerScore > dealerScore) {
-        playerWin(cards);
-    } else if (playerScore < dealerScore) {
-        playerLose(cards);
-    } else if (playerScore === dealerScore) {
-        playerPush(cards);
-    } else {
-      console.log("broken detect win function!");
-    }
-  }
-
-  function blackjack(cards) {
-    if (cards === playerCards && betSplit != 0) {
-      detectWin(playerCardsSplit);
-    } else {
-      disableHitStand();
-      showHoleCard();
-      detectWin(playerCards);
-    }
-  }
-
-// Game results and payouts ====================
-  function playerBust(cards) {
-    if (cards == playerCardsSplit) {
-      $("#playerSplitWinLossMsg").html("This hand BUST!")
-      detectWin(playerCards);
-    } else {
-      disableHitStand();
-      $("#playerWinLossMsg").html("Player BUST!");
-      nextGame();
-    }
-  }
-
-  function dealerBust(cards) {
-    var win = bet*2;
-    if (cards === playerCardsSplit) {
-      $("#dealerWinLossMsg").html("Dealer BUSTS!");
-      $("#playerSplitWinLossMsg").html("Player win $ " + win + "!")
-      winBet(win);
-      detectWin(playerCards);
-    } else {
-      $("#dealerWinLossMsg").html("Dealer BUSTS!");
-      $("#playerWinLossMsg").html("Player win $ " + win + "!")
-      winBet(win);
-      nextGame();
-    }
-  }
-
-  function playerWin(cards) {
-    var win = bet*2;
-    if (cards === playerCardsSplit) {
-      $("#playerSplitWinLossMsg").html("Player win $ " + win +"!");
-      winBet(win);
-      detectWin(playerCards);
-    } else {
-      $("#playerWinLossMsg").html("Player win $ " + win +"!");
-      winBet(win);
-      nextGame();
-    }
-  }
-
-  function playerLose(cards) {
-    if (cards === playerCardsSplit) {
-      $("#playerSplitWinLossMsg").html("This hand lose.")
-      detectWin(playerCards);
-    } else {
-      $("#playerWinLossMsg").html("Player lose.");
-      nextGame();
-    }
-  }
-
-  function playerPush(cards) {
-    if (cards === playerCardsSplit) {
-      $("#playerSplitWinLossMsg").html("Push.");
-      winBet(bet);
-      detectWin(playerCards);
-    } else {
-      $("#playerWinLossMsg").html("Push.");
-      winBet(bet);
-      nextGame();
-    }
-  }
-
-  function blackjackWin(cards) {
-    var win = (bet*3/2)+bet
-    if (cards === playerCardsSplit) {
-      $("#playerWinLossMsg").html("BLACKJACK! Player win $ " + win + "!");
-      setTimeout(detectWin(playerCards), 200);  //need a quick timout to delay DOM
-      clearTimeout();
-      amountLeft += win;
-      displayAmtLeft();
-    } else {
-      $("#playerWinLossMsg").html("BLACKJACK! Player win $ " + win + "!");
-      setTimeout(nextGame, 200);  //need a quick timout to delay DOM
-      clearTimeout();
-      amountLeft += win;
-      displayAmtLeft();
-    }
-  }
-
-// duplicate win results - temporary
-  function blackjackSplitWin() {
-    var win = (betSplit*3/2)+betSplit
-
-
-  }
-
-  function displayAmtLeft() {
-    $("#available").html(amountLeft);
-  }
-
-  function placeBet() {
-    bet = parseInt($("#bet").val());
-    $("#bet").prop("disabled",true);
-    amountLeft -= bet;
-    displayAmtLeft();
-  }
-
-  function winBet(amt) {
-    amountLeft += amt;
-    displayAmtLeft();
-  }
-// ^^^^^^^^^^^ Game results and payouts ^^^^^^^^^^^^
-
-
-// reset settings fucntions for next game  =====
-  function nextGame() {
-    console.log("deck",deck.length);
-    dealerCards = [];
-    playerCards = [];
-    playerCardsSplit = [];
-    bet = 0;
-    betSplit = 0;
-    splitOn = false;
-    $("#hit").removeAttr("disabled");
-    $("#stand").removeAttr("disabled");
-    $("#double").removeAttr("disabled");
-    $("#split").removeAttr("disabled");
-    $("#dealCards").show();
-    $("#hit").hide();
-    $("#stand").hide();
-    $("#double").hide();
-    $("#split").hide();
-    $("#hint").hide();
-    $("#bet").prop("disabled",false);
-  }
-
-  function reloadActiveCards() {
-    console.log("RELOAD");
-    if (deck.length < (ALLCARDS.length / 2)) {
-      deck = [];
-      for(var s=0; s<ALLCARDS.length; s++) {
-        deck.push(ALLCARDS[s]);
-      }
-    }
-  }
-
-  function clearCards() {
-    for(var i=0; i<6; i++) {
-      $(".playerCard").eq(i).removeAttr("src");
-      $(".dealerCard").eq(i).removeAttr("src");
-      $(".playerCardSplit").eq(i).removeAttr("src");
-    }
-  }
-
-  function clearScoreMessages() {
-    $("#playerScore").html("&nbsp;");
-    $("#dealerScore").html("&nbsp;");
-    $("#playerWinLossMsg").html("Player");
-    $("#dealerWinLossMsg").html("Dealer");
-    $("#playerSplitScore").html("&nbsp;");
-    $("#playerSplitWinLossMsg").html("&nbsp;");
-  }
-// ^^^^^ reset settings fucntions for next game ^^^^^
-
-
-// });
+var dealerHand = new Hand();
+dealerHand.newCard();
+dealerHand.newCard();
+dealerHand.dealerPlay();
+console.table(dealerHand.cards);
+console.log(dealerHand.calculateValue());
+console.log(dealerHand.calculateValue()[1]);
+console.log(dealerHand.calculateValue()[0]);
